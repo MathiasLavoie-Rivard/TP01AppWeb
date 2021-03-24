@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\matla\\Documents\\GitHub\\TP01AppWeb\\TP01\\TP01\\TP01.csproj": {}
+    "D:\\Documents\\Cégep\\Session 4\\Web III\\TP01AppWeb\\TP01\\TP01\\TP01.csproj": {}
   },
   "projects": {
-    "C:\\Users\\matla\\Documents\\GitHub\\TP01AppWeb\\TP01\\TP01\\TP01.csproj": {
+    "D:\\Documents\\Cégep\\Session 4\\Web III\\TP01AppWeb\\TP01\\TP01\\TP01.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\matla\\Documents\\GitHub\\TP01AppWeb\\TP01\\TP01\\TP01.csproj",
+        "projectUniqueName": "D:\\Documents\\Cégep\\Session 4\\Web III\\TP01AppWeb\\TP01\\TP01\\TP01.csproj",
         "projectName": "TP01",
-        "projectPath": "C:\\Users\\matla\\Documents\\GitHub\\TP01AppWeb\\TP01\\TP01\\TP01.csproj",
-        "packagesPath": "C:\\Users\\matla\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\matla\\Documents\\GitHub\\TP01AppWeb\\TP01\\TP01\\obj\\",
+        "projectPath": "D:\\Documents\\Cégep\\Session 4\\Web III\\TP01AppWeb\\TP01\\TP01\\TP01.csproj",
+        "packagesPath": "C:\\Users\\le240\\.nuget\\packages\\",
+        "outputPath": "D:\\Documents\\Cégep\\Session 4\\Web III\\TP01AppWeb\\TP01\\TP01\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\matla\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\le240\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -39,12 +39,6 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
-          "dependencies": {
-            "bootstrap": {
-              "target": "Package",
-              "version": "[4.6.0, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -63,7 +57,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

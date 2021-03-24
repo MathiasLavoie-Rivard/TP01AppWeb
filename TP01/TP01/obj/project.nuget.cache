@@ -1,12 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Cj1afhvwADXZfYFtjX2Kg60NGnCbYFUwcdeAGvCiueHzvq5BwdRjnjNSdnlYEd2i8uWBV+kzHsB6KvZ6vWjRJg==",
+  "dgSpecHash": "aoyGLlk++4Q72SuIkggV1pVlFLG6SVzqOnaKOkdkPutSKDNeweJb+uNcl7q++IwV0FGUxvV8Y38c/W0v0O8PtA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\matla\\Documents\\GitHub\\TP01AppWeb\\TP01\\TP01\\TP01.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\matla\\.nuget\\packages\\bootstrap\\4.6.0\\bootstrap.4.6.0.nupkg.sha512",
-    "C:\\Users\\matla\\.nuget\\packages\\jquery\\3.0.0\\jquery.3.0.0.nupkg.sha512",
-    "C:\\Users\\matla\\.nuget\\packages\\popper.js\\1.16.1\\popper.js.1.16.1.nupkg.sha512"
-  ],
+  "projectFilePath": "D:\\Documents\\Cégep\\Session 4\\Web III\\TP01AppWeb\\TP01\\TP01\\TP01.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }
