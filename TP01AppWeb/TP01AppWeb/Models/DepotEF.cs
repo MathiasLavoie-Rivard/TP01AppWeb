@@ -18,7 +18,7 @@ namespace TP01AppWeb.Models
         }
         public void AjouterUtilisateur(Utilisateur p_utilisateur)
         {
-
+            _Utilisateurs.Add(p_utilisateur);
         }
 
         public Utilisateur Connexion(Utilisateur p_utilisateur)

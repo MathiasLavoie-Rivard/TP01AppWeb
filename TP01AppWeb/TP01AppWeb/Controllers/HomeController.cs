@@ -58,7 +58,22 @@ namespace TP01AppWeb.Controllers
         [HttpPost]
         public IActionResult AjouterUtilisateur(Utilisateur p_user)
         {
-            return View("AjouterUtilisateur");
+            if (Depot.UtilisateurConn.TypeEmp == Utilisateur.TypeEmployer.Admin)
+            {
+                foreach (var u in Depot.Utilisateurs)
+                {
+                    if (u.Nom == p_user.Nom)
+                    {
+                        return View();
+                    }
+                }
+                Depot.AjouterUtilisateur(p_user);
+                return View();
+            }
+            else
+            {
+                return View();
+            }
         }
         public HomeController(IDepot depot)
         {

@@ -18,6 +18,7 @@ namespace TP01AppWeb.Models
         public string Nom { get; set; }
         [Required(ErrorMessage = "Veuillez entrer un mot de passe")]
         public string Password { get; set; }
+        [Required(ErrorMessage ="Veuillez choisir le type")]
         public TypeEmployer TypeEmp { get; set; }
     }
 }
