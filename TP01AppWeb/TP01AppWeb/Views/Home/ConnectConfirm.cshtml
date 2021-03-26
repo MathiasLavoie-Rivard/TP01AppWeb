@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "_Layout";
+}
+<main role="main" class="pb-3 logoimage">
+
+    @{ 
+        if (Model == null)
+        {
+            <p>Echec de la connection</p>
+        }
+        else
+        {
+            <p>Conneciton de @Model.Nom réussi</p>
+        }
+    }
+</main>

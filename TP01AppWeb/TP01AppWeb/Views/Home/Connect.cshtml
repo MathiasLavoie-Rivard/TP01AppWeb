@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "_Layout";
+}
+<main role="main" class="pb-3 logoimage">
+    <div>
+
+    <form asp-action="Connect" method="post">
+        <div asp-validation-summary="All">
+
+        </div>
+        <div class="form-group">
+            <label asp-for="Nom">Username</label>
+            <input asp-for="Nom" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Password">Votre nom :</label>
+            <input asp-for="Password" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Connecter</button>
+    </form>
+    </div>
+</main>

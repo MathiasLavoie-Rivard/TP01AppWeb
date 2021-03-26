@@ -1,0 +1,26 @@
+﻿@{
+    Layout = "_Layout";
+}
+<main role="main" class="pb-3 logoimage">
+    <form asp-action="FormulaireRSVP" method="post">
+        <div asp-validation-summary="All">
+
+        </div>
+        <div class="form-group">
+            <label asp-for="Nom">Nom:</label>
+            <input asp-for="Nom" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Password">Mot de passe:</label>
+            <input asp-for="Password" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Type</label>
+            <select asp-for="TypeEmp" class="form-control">
+                <option value="0">Commis</option>
+                <option value="1">Gérant</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Ajouter Utilisateur</button>
+    </form>
+</main>
