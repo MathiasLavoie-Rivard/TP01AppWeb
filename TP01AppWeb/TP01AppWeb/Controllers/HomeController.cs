@@ -7,13 +7,17 @@ using TP01AppWeb.Models;
 
 namespace TP01AppWeb.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : Controller, ReadMe
     {
 
         private IDepot Depot { get; }
 
         public IActionResult Index()
         {
+            List<string> auteurs = new List<string>();
+            auteurs.Add("Xavier Hivon-Lefebvre");
+            auteurs.Add("Mathias Lavoie-Rivard");
+            ViewBag.Auteurs = auteurs;
             return View("Index");
         }
 

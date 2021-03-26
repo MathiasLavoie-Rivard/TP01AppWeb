@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TP01AppWeb.Models
 {
-    public class DepotEF : IDepot
+    public class DepotEF : IDepot, ReadMe
     {
         private Utilisateur _Utilisateurconn = null;
         public Utilisateur UtilisateurConn { get { return _Utilisateurconn; } }

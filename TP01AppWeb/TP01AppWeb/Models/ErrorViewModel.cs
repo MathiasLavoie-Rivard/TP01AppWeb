@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TP01AppWeb.Models
 {
-    public class ErrorViewModel
+    public class ErrorViewModel : ReadMe
     {
         public string Error { get; set; }
         

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TP01AppWeb.Models
 {
-    public interface IDepot
+    public interface IDepot : ReadMe
     {
         IEnumerable<Utilisateur> Utilisateurs { get; }
         Utilisateur UtilisateurConn { get; }

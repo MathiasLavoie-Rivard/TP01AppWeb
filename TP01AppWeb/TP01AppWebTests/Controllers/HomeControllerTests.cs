@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using System.Text;
 using TP01AppWeb.Models;
 using Xunit;
-using Microsoft.AspNetCore.Mvc;
 using Moq;
 
 namespace TP01AppWeb.Controllers.Tests
 {
-    public class HomeControllerTests
+    public class HomeControllerTests : ReadMe
     {
         static DepotEF depot = new DepotEF();
         HomeController hc = new HomeController(depot);

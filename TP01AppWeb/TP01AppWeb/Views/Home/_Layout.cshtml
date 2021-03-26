@@ -4,23 +4,21 @@
     <title>@ViewBag.Titre</title>
 </head>
 <body>
-    <header class="navbar navbar-expand-sm navbar-light bg-white border-bottom mb-3">
-        <div class="container">
-            <ul>
-                <li>
-                    <a href="@Url.Action("Index","Home")">ACCUEIL</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("AjouterUtilisateur","Home")">AJOUTER UN UTILISATEUR</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Connect","Home")">CONNEXION</a>
-                </li>
-            </ul>
-        </div>
+    <header class="navbar navbar-expand-sm navbar-light bg-white border-bottom container">
+        <ul>
+            <li>
+                <a href="@Url.Action("Index","Home")">ACCUEIL</a>
+            </li>
+            <li>
+                <a href="@Url.Action("AjouterUtilisateur","Home")">AJOUTER UN UTILISATEUR</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Connect","Home")">CONNEXION</a>
+            </li>
+        </ul>
     </header>
-            @RenderBody()
-    <footer class="footer border-top text-muted">
+    @RenderBody()
+    <footer class="footer border-top">
         <div class="container text-center">
             SHEEESHMOBILE
         </div>
