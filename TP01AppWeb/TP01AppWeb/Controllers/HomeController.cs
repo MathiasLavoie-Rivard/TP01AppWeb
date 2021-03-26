@@ -10,7 +10,7 @@ namespace TP01AppWeb.Controllers
     public class HomeController : Controller
     {
 
-        private IDepot Depot{get; }
+        private IDepot Depot { get; }
 
         public IActionResult Index()
         {
@@ -18,7 +18,7 @@ namespace TP01AppWeb.Controllers
         }
 
 
-        
+
         [HttpGet]
         public IActionResult Connect()
         {
@@ -30,18 +30,24 @@ namespace TP01AppWeb.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (Depot.Utilisateurs.Any(item => item.Nom == p_user.Nom)){
 
-                Utilisateur u = Depot.Connexion(p_user);
-                if (u != null)
-                {
-                    return View("ConnectConfirm", u);
+                    if (Depot.Connexion(p_user)){
+                        ErrorViewModel e = new ErrorViewModel("La connection de " + p_user.Nom + " a été réussi");
+                        return View("Error", e);
+                    }
+                    else
+                    {
+                        ErrorViewModel e = new ErrorViewModel("Le mot de passe n'est pas le bon");
+                        return View("Error", e);
+                    }
+
                 }
                 else
                 {
-                    return View("ConnectConfirm", u);
+                    ErrorViewModel e = new ErrorViewModel("Le code " + p_user.Nom + " est non existant");
+                    return View("Error", e);
                 }
-            
-
             }
             else
             {
@@ -58,21 +64,25 @@ namespace TP01AppWeb.Controllers
         [HttpPost]
         public IActionResult AjouterUtilisateur(Utilisateur p_user)
         {
-            if (Depot.UtilisateurConn.TypeEmp == Utilisateur.TypeEmployer.Admin)
+            ErrorViewModel e;
+            if (Depot.UtilisateurConn != null && Depot.UtilisateurConn.TypeEmp == Utilisateur.TypeEmployer.Admin)
             {
                 foreach (var u in Depot.Utilisateurs)
                 {
                     if (u.Nom == p_user.Nom)
                     {
-                        return View();
+                        e = new ErrorViewModel("Le code d'utilisateur existe déja");
+                        return View("Error", e);
                     }
                 }
                 Depot.AjouterUtilisateur(p_user);
-                return View();
+                 e = new ErrorViewModel("L'utilisateur a été ajouté avec succès");
+                return View("Error", e);
             }
             else
             {
-                return View();
+                 e = new ErrorViewModel("Vous n'êtes pas adminitrateur");
+                return View("Error", e);
             }
         }
         public HomeController(IDepot depot)

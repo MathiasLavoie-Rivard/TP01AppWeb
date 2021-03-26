@@ -7,7 +7,7 @@ namespace TP01AppWeb.Models
 {
     public class DepotEF : IDepot
     {
-        private Utilisateur _Utilisateurconn;
+        private Utilisateur _Utilisateurconn = null;
         public Utilisateur UtilisateurConn { get { return _Utilisateurconn; } }
         private List<Utilisateur> _Utilisateurs = new List<Utilisateur>();
         public IEnumerable<Utilisateur> Utilisateurs { get { return _Utilisateurs; } }
@@ -21,17 +21,17 @@ namespace TP01AppWeb.Models
             _Utilisateurs.Add(p_utilisateur);
         }
 
-        public Utilisateur Connexion(Utilisateur p_utilisateur)
+        public bool Connexion(Utilisateur p_utilisateur)
         {
             foreach (var u in Utilisateurs)
             {
                 if (u.Nom == p_utilisateur.Nom && u.Password == p_utilisateur.Password)
                 {
                     _Utilisateurconn = u;
-                    return u;
+                    return true;
                 }
             }
-            return null;
+            return false;
         }
     }
 }

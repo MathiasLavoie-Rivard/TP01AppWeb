@@ -10,6 +10,6 @@ namespace TP01AppWeb.Models
         IEnumerable<Utilisateur> Utilisateurs { get; }
         Utilisateur UtilisateurConn { get; }
         void AjouterUtilisateur(Utilisateur p_utilisateur);
-        Utilisateur Connexion(Utilisateur p_utilisateur);
+        bool Connexion(Utilisateur p_utilisateur);
     }
 }

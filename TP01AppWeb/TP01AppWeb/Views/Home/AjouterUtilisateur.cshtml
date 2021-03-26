@@ -1,11 +1,9 @@
-﻿@{
+﻿@model Utilisateur;
+@{
     Layout = "_Layout";
 }
 <main role="main" class="pb-3 logoimage">
     <form asp-action="AjouterUtilisateur" method="post">
-        <div asp-validation-summary="All">
-
-        </div>
         <div class="form-group">
             <label asp-for="Nom">Code d'utilisateur: </label>
             <input asp-for="Nom" class="form-control" />
@@ -17,10 +15,13 @@
         <div class="form-group">
             <label>Type: </label>
             <select asp-for="TypeEmp" class="form-control">
-                <option value="0">Commis</option>
-                <option value="1">Gérant</option>
+                <option value="@Utilisateur.TypeEmployer.Commis">Commis</option>
+                <option value="@Utilisateur.TypeEmployer.Gérant">Gérant</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Ajouter Utilisateur</button>
+        <div asp-validation-summary="All">
+
+        </div>
     </form>
 </main>

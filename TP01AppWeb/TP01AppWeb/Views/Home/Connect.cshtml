@@ -1,13 +1,11 @@
-﻿@{
+﻿@model Utilisateur;
+@{
     Layout = "_Layout";
 }
 <main role="main" class="pb-3 logoimage">
     <div>
 
         <form asp-action="Connect" method="post">
-            <div asp-validation-summary="All">
-
-            </div>
             <div class="form-group">
                 <label asp-for="Nom">Code d'utilisateur: </label>
                 <input asp-for="Nom" class="form-control" />
@@ -18,5 +16,8 @@
             </div>
             <button type="submit" class="btn btn-primary">Connecter</button>
         </form>
+        <div asp-validation-summary="All">
+
+        </div>
     </div>
 </main>
