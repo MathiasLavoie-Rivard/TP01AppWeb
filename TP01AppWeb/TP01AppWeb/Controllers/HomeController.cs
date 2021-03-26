@@ -33,7 +33,7 @@ namespace TP01AppWeb.Controllers
                 if (Depot.Utilisateurs.Any(item => item.Nom == p_user.Nom)){
 
                     if (Depot.Connexion(p_user)){
-                        ErrorViewModel e = new ErrorViewModel("La connection de " + p_user.Nom + " a été réussi");
+                        ErrorViewModel e = new ErrorViewModel("La connection de " + p_user.Nom + " a réussi");
                         return View("Error", e);
                     }
                     else
@@ -81,7 +81,7 @@ namespace TP01AppWeb.Controllers
             }
             else
             {
-                 e = new ErrorViewModel("Vous n'êtes pas adminitrateur");
+                 e = new ErrorViewModel("Vous n'êtes pas administrateur");
                 return View("Error", e);
             }
         }
