@@ -50,14 +50,24 @@ namespace TP01AppWeb.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public IActionResult Connect(UserLogin p_user)
+        public async Task<IActionResult> Connect(UserLogin p_user)
         {
             if (ModelState.IsValid)
             {
-                //IdentityUser user = await userManager.
-
+                IdentityUser user = await userManager.FindByNameAsync(p_user.Login);
+                if (user != null)
+                {
+                    await signInManager.SignOutAsync();
+                    Microsoft.AspNetCore.Identity.SignInResult result =
+                            await signInManager.PasswordSignInAsync(
+                                user, p_user.MDP, false, false);
+                    if (result.Succeeded)
+                    {
+                        return View("Index");
+                    }
+                }
             }
-            return View("Index");
+            return View("Connect");
         }
 
         [HttpGet]
