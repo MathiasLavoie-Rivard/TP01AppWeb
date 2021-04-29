@@ -17,7 +17,6 @@ namespace TP01AppWeb
 {
     public class Startup : ReadMe
     {
-
         public Startup(IConfiguration p_config)
         {
             Configuration = p_config;
@@ -62,11 +61,15 @@ namespace TP01AppWeb
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}");
+                    pattern: "{controller=Home}/{action=Connect}");
             });
 
             app.UseEndpoints(endpoints =>

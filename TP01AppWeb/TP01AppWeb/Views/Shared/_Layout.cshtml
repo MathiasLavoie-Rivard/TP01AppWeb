@@ -6,9 +6,12 @@
 <body>
     <header class="navbar navbar-expand-sm navbar-light bg-white border-bottom container">
         <ul>
-            <li>
-                <a href="@Url.Action("Index","Home")">ACCUEIL</a>
-            </li>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li>
+                    <a href="@Url.Action("Index","Home")">ACCUEIL</a>
+                </li>
+            }
             <li>
                 <a href="@Url.Action("AjouterUtilisateur","Home")">AJOUTER UN UTILISATEUR</a>
             </li>
