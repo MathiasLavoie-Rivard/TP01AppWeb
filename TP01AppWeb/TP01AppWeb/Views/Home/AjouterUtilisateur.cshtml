@@ -1,4 +1,4 @@
-﻿@model Utilisateur;
+﻿@model UserCreate;
 @{
     Layout = "_Layout";
 }
@@ -15,8 +15,8 @@
         <div class="form-group">
             <label>Type: </label>
             <select asp-for="TypeEmp" class="form-control">
-                <option value="@Utilisateur.TypeEmployer.Commis">Commis</option>
-                <option value="@Utilisateur.TypeEmployer.Gérant">Gérant</option>
+                <option value="@UserCreate.TypeEmployer.Commis">Commis</option>
+                <option value="@UserCreate.TypeEmployer.Gérant">Gérant</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Ajouter Utilisateur</button>

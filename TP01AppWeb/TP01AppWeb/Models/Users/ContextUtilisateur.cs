@@ -9,12 +9,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TP01AppWeb.Models.Users
 {
-    public sealed class ContextUtilisateur : IdentityDbContext<Utilisateur>, ReadMe
+    public sealed class ContextUtilisateur : IdentityDbContext<UserCreate>, ReadMe
     {
 
         public ContextUtilisateur(DbContextOptions<ContextUtilisateur> options)
             : base(options) { }
 
-        public DbSet<Utilisateur> Utilisateurs { get; set; }
+        public DbSet<UserCreate> Utilisateurs { get; set; }
     }
 }
