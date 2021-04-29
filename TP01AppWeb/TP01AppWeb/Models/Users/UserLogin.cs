@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TP01AppWeb.Models.Users
 {
-    public class UserLogin
+    public class UserLogin : ReadMe
     {
         public string Login { get; set; }
         public string MDP { get; set; }
