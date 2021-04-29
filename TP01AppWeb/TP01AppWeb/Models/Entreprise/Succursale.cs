@@ -16,5 +16,6 @@ namespace TP01AppWeb.Models
         public string Province { get; set; }
         public string CodePostal { get; set; }
         public string PhoneNumber { get; set; }
+        public List<Voiture> Voiture { get; set; }
     }
 }
