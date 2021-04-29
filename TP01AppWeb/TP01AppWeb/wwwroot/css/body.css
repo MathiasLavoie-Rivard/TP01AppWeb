@@ -1,15 +1,19 @@
 ﻿body {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .footer {
     text-align: center;
-    position: absolute;
     bottom: 0;
     width: 100%;
     line-height: 40px;
     white-space: nowrap;
     background-color: #333;
     color: #FFC045;
+    clear: both;
+    position: relative !important;
 }
 
 .color {
@@ -30,11 +34,6 @@ html, body {
     min-height: 100%;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-}
-
 header,
 footer {
     flex: none;
@@ -42,6 +41,7 @@ footer {
 
 main {
     flex: auto;
+    padding-bottom : 0;
 }
 
 ul {

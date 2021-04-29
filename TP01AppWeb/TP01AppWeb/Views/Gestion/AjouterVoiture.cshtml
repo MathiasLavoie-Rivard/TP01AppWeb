@@ -1,0 +1,37 @@
+﻿@model Voiture;
+@{
+    Layout = "_Layout";
+}
+<main role="main" class="pb-3 logoimage">
+    <form asp-action="AjouterSuccursale" method="post">
+        <div class="form-group">
+            <label asp-for="NoVoiture"></label>
+            <input asp-for="NoVoiture" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Model"></label>
+            <input asp-for="Model" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Annee"></label>
+            <input asp-for="Annee" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Millage"></label>
+            <input asp-for="Millage" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Groupe"></label>
+            <select asp-for="Groupe" class="form-control">
+                @foreach (var g in Enum.GetValues(typeof(Voiture.Groupes)))
+                {
+                <option value="@g">@g.ToString()</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Ajouter une voiture</button>
+        <div asp-validation-summary="All">
+
+        </div>
+    </form>
+</main>

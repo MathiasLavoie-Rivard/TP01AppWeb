@@ -73,7 +73,7 @@ namespace TP01AppWeb
             {
                 endpoints.MapControllerRoute(
                     name: "Gestion",
-                    pattern: "{controller=Gestion}/{action=Index}");
+                    pattern: "{controller=Gestion}/{action?}");
             });
         }
     }
