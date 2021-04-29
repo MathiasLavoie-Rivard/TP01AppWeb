@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using TP01AppWeb.Models.Entreprise;
 
 namespace TP01AppWeb.Controllers
 {
+    [Authorize]
     public class GestionController : Controller, ReadMe
     {
         [HttpGet]

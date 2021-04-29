@@ -8,9 +8,11 @@ using TP01AppWeb.Models.Users;
 using TP01AppWeb.Models.Entreprise;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TP01AppWeb.Controllers
 {
+    [Authorize]
     public class HomeController : Controller, ReadMe
     {
         private ContextUtilisateur contextUser;
@@ -33,13 +35,14 @@ namespace TP01AppWeb.Controllers
         }
 
 
-
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Connect()
         {
             return View("Connect");
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult Connect(Utilisateur p_user)
         {
