@@ -20,7 +20,7 @@ namespace TP01AppWeb
         Déploiement:            1) Pour former la base de données, sous la Console du Gestionnaire de package, entrer les lignes de code suivantes:
                                     add-migration entreprise -context ContextEntreprise
                                     update-database -context ContextEntreprise
-                                    add-migration utilisateur -context ContextUtilisateur
+                                    add-migration identity -context ContextIdentity
                                     update-database -context ContextUtilisateur
                                     
         */
