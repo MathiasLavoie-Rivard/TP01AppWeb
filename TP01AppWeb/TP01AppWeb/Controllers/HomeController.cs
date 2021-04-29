@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using TP01AppWeb.Models;
 using TP01AppWeb.Models.Users;
 using TP01AppWeb.Models.Entreprise;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace TP01AppWeb.Controllers
 {
@@ -43,9 +45,10 @@ namespace TP01AppWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (Depot.Utilisateurs.Any(item => item.Nom == p_user.Nom)){
-
-                    if (Depot.Connexion(p_user)){
+                if (contextUser.Users.Any(item => item.Nom == p_user.Nom))
+                {
+                    if (Depot.Connexion(p_user))
+                    {
                         ErrorViewModel e = new ErrorViewModel("La connection de " + p_user.Nom + " a réussi");
                         return View("Error", e);
                     }
@@ -78,7 +81,8 @@ namespace TP01AppWeb.Controllers
         public IActionResult AjouterUtilisateur(Utilisateur p_user)
         {
             ErrorViewModel e;
-            if (Depot.UtilisateurConn != null && Depot.UtilisateurConn.TypeEmp == Utilisateur.TypeEmployer.Admin)
+            Utilisateur currentUser = contextUser.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            if (User.Identity.IsAuthenticated && currentUser.TypeEmp == Utilisateur.TypeEmployer.Admin)
             {
                 foreach (var u in Depot.Utilisateurs)
                 {
@@ -89,15 +93,14 @@ namespace TP01AppWeb.Controllers
                     }
                 }
                 Depot.AjouterUtilisateur(p_user);
-                 e = new ErrorViewModel("L'utilisateur a été ajouté avec succès");
+                e = new ErrorViewModel("L'utilisateur a été ajouté avec succès");
                 return View("Error", e);
             }
             else
             {
-                 e = new ErrorViewModel("Vous n'êtes pas administrateur");
+                e = new ErrorViewModel("Vous n'êtes pas administrateur");
                 return View("Error", e);
             }
         }
-        
     }
 }
