@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TP01AppWeb.Models
+namespace TP01AppWeb.Models.Users
 {
     public class Utilisateur : ReadMe
     {

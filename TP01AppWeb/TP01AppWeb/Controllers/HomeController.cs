@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TP01AppWeb.Models;
+using TP01AppWeb.Models.Users;
+using TP01AppWeb.Models.Entreprise;
 
 namespace TP01AppWeb.Controllers
 {

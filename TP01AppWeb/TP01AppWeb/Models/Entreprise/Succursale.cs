@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace TP01AppWeb.Models
+namespace TP01AppWeb.Models.Entreprise
 {
     public sealed class Succursale
     {

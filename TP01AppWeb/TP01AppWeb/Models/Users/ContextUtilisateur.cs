@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace TP01AppWeb.Models
+namespace TP01AppWeb.Models.Users
 {
     public sealed class ContextUtilisateur : DbContext
     {

@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using TP01AppWeb.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using TP01AppWeb.Models.Entreprise;
+using TP01AppWeb.Models.Users;
 
 namespace TP01AppWeb
 {

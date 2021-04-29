@@ -5,6 +5,8 @@ using System.Text;
 using TP01AppWeb.Models;
 using Xunit;
 using Moq;
+using TP01AppWeb.Models.Users;
+using TP01AppWeb.Models.Entreprise;
 
 namespace TP01AppWeb.Controllers.Tests
 {
