@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TP01AppWeb.Models.Users
 {
-    public class PeuplerUtilisateurs
+    public class PeuplerUtilisateurs: ReadMe
     {
 
     }

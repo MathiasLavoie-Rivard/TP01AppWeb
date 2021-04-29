@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TP01AppWeb.Controllers
 {
-    public class GestionController : Controller
+    public class GestionController : Controller, ReadMe
     {
         public IActionResult Index()
         {
