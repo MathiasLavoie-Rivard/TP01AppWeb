@@ -33,7 +33,7 @@ namespace TP01AppWeb
                 opts.EnableSensitiveDataLogging(true);
             });
 
-            services.AddDbContext<ContextUtilisateur>(opts =>
+            services.AddDbContext<ContextIdentity>(opts =>
             {
                 opts.UseSqlServer(Configuration[
                 "ChainesConnexion:ConnexionUtilisateur"]);
@@ -46,7 +46,7 @@ namespace TP01AppWeb
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ContextUtilisateur contextU, ContextEntreprise contextE)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ContextIdentity contextU, ContextEntreprise contextE)
         {
             if (env.IsDevelopment())
             {

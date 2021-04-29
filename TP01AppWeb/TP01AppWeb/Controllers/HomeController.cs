@@ -50,12 +50,13 @@ namespace TP01AppWeb.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public IActionResult Connect(UserCreate p_user)
+        public IActionResult Connect(UserLogin p_user)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    IdentityUser user = await userManager.FindByNameAsync
-            //}
+            if (ModelState.IsValid)
+            {
+                //IdentityUser user = await userManager.
+
+            }
             return View("Index");
         }
 
