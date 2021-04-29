@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TP01AppWeb.Models.Users
 {
-    public class Utilisateur : IdentityUser, ReadMe
+    public class Utilisateur, ReadMe
     {
         public enum TypeEmployer
         {

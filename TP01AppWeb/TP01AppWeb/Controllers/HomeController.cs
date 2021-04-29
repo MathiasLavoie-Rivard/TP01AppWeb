@@ -12,19 +12,24 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace TP01AppWeb.Controllers
 {
+
+
     [Authorize]
     public class HomeController : Controller, ReadMe
     {
-        private ContextUtilisateur contextUser;
+        private UserManager<IdentityUser> userManager;
+        private SignInManager<IdentityUser> signInManager;
 
-        public HomeController(IDepot depot, ContextUtilisateur p_context)
+        public HomeController(IDepot depot, UserManager<IdentityUser> userMgr, SignInManager<IdentityUser> siginMgr )
         {
             Depot = depot;
-            contextUser = p_context;
+            userManager = userMgr;
+            signInManager = siginMgr;
         }
 
         private IDepot Depot { get; }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             List<string> auteurs = new List<string>();
@@ -35,43 +40,23 @@ namespace TP01AppWeb.Controllers
         }
 
 
-        [AllowAnonymous]
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Connect()
         {
             return View("Connect");
         }
 
-        [AllowAnonymous]
         [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public IActionResult Connect(Utilisateur p_user)
         {
-            if (ModelState.IsValid)
-            {
-                if (contextUser.Users.Any(item => item.Nom == p_user.Nom))
-                {
-                    if (Depot.Connexion(p_user))
-                    {
-                        ErrorViewModel e = new ErrorViewModel("La connection de " + p_user.Nom + " a réussi");
-                        return View("Error", e);
-                    }
-                    else
-                    {
-                        ErrorViewModel e = new ErrorViewModel("Le mot de passe n'est pas le bon");
-                        return View("Error", e);
-                    }
-
-                }
-                else
-                {
-                    ErrorViewModel e = new ErrorViewModel("Le code " + p_user.Nom + " est non existant");
-                    return View("Error", e);
-                }
-            }
-            else
-            {
-                return View();
-            }
+            //if (ModelState.IsValid)
+            //{
+            //    IdentityUser user = await userManager.FindByNameAsync
+            //}
+            return View("Index");
         }
 
         [HttpGet]
@@ -83,27 +68,27 @@ namespace TP01AppWeb.Controllers
         [HttpPost]
         public IActionResult AjouterUtilisateur(Utilisateur p_user)
         {
-            ErrorViewModel e;
-            Utilisateur currentUser = contextUser.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
-            if (User.Identity.IsAuthenticated && currentUser.TypeEmp == Utilisateur.TypeEmployer.Admin)
-            {
-                foreach (var u in Depot.Utilisateurs)
-                {
-                    if (u.Nom == p_user.Nom)
-                    {
-                        e = new ErrorViewModel("Le code d'utilisateur existe déja");
-                        return View("Error", e);
-                    }
-                }
-                Depot.AjouterUtilisateur(p_user);
-                e = new ErrorViewModel("L'utilisateur a été ajouté avec succès");
-                return View("Error", e);
-            }
-            else
-            {
-                e = new ErrorViewModel("Vous n'êtes pas administrateur");
-                return View("Error", e);
-            }
+            //ErrorViewModel e;
+            //Utilisateur currentUser = contextUser.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            //if (User.Identity.IsAuthenticated && currentUser.TypeEmp == Utilisateur.TypeEmployer.Admin)
+            //{
+            //    foreach (var u in Depot.Utilisateurs)
+            //    {
+            //        if (u.Nom == p_user.Nom)
+            //        {
+            //            e = new ErrorViewModel("Le code d'utilisateur existe déja");
+            //            return View("Error", e);
+            //        }
+            //    }
+            //    Depot.AjouterUtilisateur(p_user);
+            //    e = new ErrorViewModel("L'utilisateur a été ajouté avec succès");
+            //    return View("Error", e);
+            //}
+            //else
+            //{
+            //    e = new ErrorViewModel("Vous n'êtes pas administrateur");
+                return View("Error");
+            //}
         }
     }
 }
