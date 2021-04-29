@@ -14,6 +14,8 @@ namespace TP01AppWeb.Models
             Gérant,
             Commis
         }
+        [Key]
+        public int Id { get; set; }
         [RegularExpression("^[a-zA-Z0-9]{6}$", ErrorMessage = "Le code doit être une chaîne de 6 caractères alphanumériques")]
         [Required(ErrorMessage = "Veuillez entrer un nom")]
         public string Nom { get; set; }
