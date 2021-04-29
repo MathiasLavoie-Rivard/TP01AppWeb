@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TP01AppWeb.Models.Entreprise
 {
-    public sealed class ContextEntreprise : DbContext
+    public sealed class ContextEntreprise : DbContext, ReadMe
     {
         public ContextEntreprise(DbContextOptions<ContextEntreprise> options)
             : base(options) { }

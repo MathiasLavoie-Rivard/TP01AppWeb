@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TP01AppWeb.Models.Users
 {
-    public sealed class ContextUtilisateur : DbContext
+    public sealed class ContextUtilisateur : DbContext, ReadMe
     {
 
         public ContextUtilisateur(DbContextOptions<ContextUtilisateur> options)

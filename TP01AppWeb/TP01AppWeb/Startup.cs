@@ -68,6 +68,13 @@ namespace TP01AppWeb
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}");
             });
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "Gestion",
+                    pattern: "{controller=Gestion}/{action=Index}");
+            });
         }
     }
 }
