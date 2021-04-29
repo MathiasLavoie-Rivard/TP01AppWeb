@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 
 namespace TP01AppWeb.Models.Users
 {
-    public sealed class ContextUtilisateur : DbContext, ReadMe
+    public sealed class ContextUtilisateur : IdentityDbContext<Utilisateur>, ReadMe
     {
 
         public ContextUtilisateur(DbContextOptions<ContextUtilisateur> options)
