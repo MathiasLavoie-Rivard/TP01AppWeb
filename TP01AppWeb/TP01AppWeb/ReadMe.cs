@@ -17,6 +17,12 @@ namespace TP01AppWeb
         Installation:           Doit être déployé sur un serveur Web
         Utilisation:            Sera accessible en local sur tout navigateur internet moderne.
         Droits d'auteur:        ©SHEEESHMOBILE
+        Déploiement:            1) Pour former la base de données, sous la Console du Gestionnaire de package, entrer les lignes de code suivantes:
+                                    add-migration entreprise -context ContextEntreprise
+                                    update-database -context ContextEntreprise
+                                    add-migration utilisateur -context ContextUtilisateur
+                                    update-database -context ContextUtilisateur
+                                    
         */
     }
 }

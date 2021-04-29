@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TP01AppWeb.Models.Users
 {
-    public class Utilisateur : ReadMe
+    public class Utilisateur : IdentityUser, ReadMe
     {
         public enum TypeEmployer
         {
@@ -14,8 +15,6 @@ namespace TP01AppWeb.Models.Users
             Gérant,
             Commis
         }
-        [Key]
-        public int Id { get; set; }
         [RegularExpression("^[a-zA-Z0-9]{6}$", ErrorMessage = "Le code doit être une chaîne de 6 caractères alphanumériques")]
         [Required(ErrorMessage = "Veuillez entrer un nom")]
         public string Nom { get; set; }
