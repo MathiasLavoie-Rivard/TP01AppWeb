@@ -9,6 +9,7 @@ namespace TP01AppWeb.Models
     public sealed class Voiture
     {
         [Key]
+        public int Id { get; set; }
         public int NoVoiture { get; set; }
         public string Model { get; set; }
         public int Annee { get; set; }
