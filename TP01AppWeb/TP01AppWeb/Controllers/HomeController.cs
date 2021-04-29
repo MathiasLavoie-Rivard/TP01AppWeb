@@ -44,7 +44,7 @@ namespace TP01AppWeb.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Connect(Utilisateur p_user)
+        public IActionResult Connect(UserCreate p_user)
         {
             if (ModelState.IsValid)
             {
@@ -81,11 +81,11 @@ namespace TP01AppWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult AjouterUtilisateur(Utilisateur p_user)
+        public IActionResult AjouterUtilisateur(UserCreate p_user)
         {
             ErrorViewModel e;
-            Utilisateur currentUser = contextUser.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
-            if (User.Identity.IsAuthenticated && currentUser.TypeEmp == Utilisateur.TypeEmployer.Admin)
+            UserCreate currentUser = contextUser.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            if (User.Identity.IsAuthenticated && currentUser.TypeEmp == UserCreate.TypeEmployer.Admin)
             {
                 foreach (var u in Depot.Utilisateurs)
                 {

@@ -12,9 +12,12 @@
                     <a href="@Url.Action("Index","Home")">ACCUEIL</a>
                 </li>
             }
-            <li>
-                <a href="@Url.Action("AjouterUtilisateur","Home")">AJOUTER UN UTILISATEUR</a>
-            </li>
+            @if (true)
+            {
+                <li>
+                    <a href="@Url.Action("AjouterUtilisateur","Home")">AJOUTER UN UTILISATEUR</a>
+                </li>
+            }
             <li>
                 <a href="@Url.Action("Connect","Home")">CONNEXION</a>
             </li>
