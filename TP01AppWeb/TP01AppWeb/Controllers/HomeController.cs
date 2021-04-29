@@ -11,6 +11,13 @@ namespace TP01AppWeb.Controllers
 {
     public class HomeController : Controller, ReadMe
     {
+        private ContextUtilisateur contextUser;
+
+        public HomeController(IDepot depot, ContextUtilisateur p_context)
+        {
+            Depot = depot;
+            contextUser = p_context;
+        }
 
         private IDepot Depot { get; }
 
@@ -91,9 +98,6 @@ namespace TP01AppWeb.Controllers
                 return View("Error", e);
             }
         }
-        public HomeController(IDepot depot)
-        {
-            Depot = depot;
-        }
+        
     }
 }

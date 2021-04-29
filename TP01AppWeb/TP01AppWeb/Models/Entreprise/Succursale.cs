@@ -11,6 +11,7 @@ namespace TP01AppWeb.Models.Entreprise
     {
         [Key]
         public int Id { get; set; }
+        
         [Display(Name = "Code de succursale:")]
         public int Code { get; set; }
         [Display(Name = "Numéro civic:")]

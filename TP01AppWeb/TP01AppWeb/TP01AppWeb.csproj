@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="App_Data\**" />
+    <Content Remove="App_Data\**" />
+    <EmbeddedResource Remove="App_Data\**" />
+    <None Remove="App_Data\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.13" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.13" />
     <PackageReference Include="Microsoft.EntityframeworkCore" Version="5.0.5" />
@@ -21,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
