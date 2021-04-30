@@ -5,12 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TP01AppWeb.Models.Entreprise;
+using TP01AppWeb.Models;
 
 namespace TP01AppWeb.Controllers
 {
+
     [Authorize]
     public class GestionController : Controller, ReadMe
     {
+        DepotEF depotef = new DepotEF();
         private ContextEntreprise contextEntr;
 
         public GestionController(ContextEntreprise context)
@@ -29,67 +32,37 @@ namespace TP01AppWeb.Controllers
         [Authorize(Roles = "Admin,Gérant")]
         public IActionResult Succursale(Succursale succursale)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                string result = depotef.AjouterSuccursale(succursale, contextEntr);
+                if (result == "SUCCESS")
                 {
-                    if (!contextEntr.Succursales.Any(s => s.Code == succursale.Code))
-                    {
-                        if (!contextEntr.Succursales.Any(s => s.Rue == succursale.Rue && s.CodePostal == succursale.CodePostal))
-                        {
-                            if (!contextEntr.Succursales.Any(s => s.CodePostal == succursale.CodePostal && s.Ville == succursale.Ville))
-                            {
-                                if (!contextEntr.Succursales.Any(s => s.CodePostal == succursale.CodePostal && s.Province == succursale.Province))
-                                {
-                                    contextEntr.Add(succursale);
-                                    contextEntr.SaveChanges();
-                                }
-                                else
-                                {
-                                    ModelState.AddModelError(nameof(succursale),
-                                        "Il y a un autre nom de province avec le même code postal");
-                                    return View(succursale);
-                                }
-                            }
-                            else
-                            {
-                                ModelState.AddModelError(nameof(succursale),
-                                    "Il y a un autre nom de ville avec le même code postal");
-                                return View(succursale);
-                            }
-                        }
-                        else
-                        {
-                            ModelState.AddModelError(nameof(succursale),
-                                "Il y a déjà une succursale avec le même nom de rue et code postal");
-                            return View(succursale);
-                        }
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(nameof(succursale),
-                            "Le code de succursale est déjà utilisé");
-                        return View(succursale);
-                    }
                     return RedirectToAction("Index", "Home");
                 }
+                else
+                {
+                    ModelState.AddModelError(nameof(succursale), result);
+                    return View();
+                }
             }
-            catch (Exception) { }
-            return View(succursale);
+            return View();
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,Gérant,Commis")]
         public IActionResult Voiture()
         {
             return View("Voiture");
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Gérant,Commis")]
         public IActionResult Voiture(Voiture voiture)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                string result = depotef.AjouterVoiture(voiture, contextEntr);
+                if (result == "SUCCESS")
                 {
                     if (contextEntr.Succursales.Any(s => s.Code == voiture.SuccursaleId))
                     {
@@ -131,9 +104,13 @@ namespace TP01AppWeb.Controllers
                     }
                     return RedirectToAction("Index", "Home");
                 }
+                else
+                {
+                    ModelState.AddModelError(nameof(voiture), result);
+                    return View();
+                }
             }
-            catch (Exception) { }
-            return View(voiture);
+            return View();
         }
     }
 }
