@@ -11,22 +11,34 @@ namespace TP01AppWeb.Controllers
     [Authorize]
     public class GestionController : Controller, ReadMe
     {
-        [HttpGet]
-        public IActionResult Succursales()
+        private ContextEntreprise contextEntr;
+
+        public GestionController(ContextEntreprise context)
         {
-            return View("AjouterSuccursales");
+            contextEntr = context;
         }
+
+        [HttpGet]
+        public IActionResult Succursale()
+        {
+            return View("AjouterSuccursale");
+        }
+
         [HttpPost]
         public IActionResult Succursale(Succursale succursale)
         {
-            return View("AjouterSuccursales");
+            try
+            {
+                contextEntr.Add(succursale);
+                contextEntr.SaveChanges();
+            }
+            catch (Exception) { }
+
+            return View("AjouterSuccursale");
         }
 
-
-
-
         [HttpGet]
-        public IActionResult Voitures()
+        public IActionResult Voiture()
         {
             return View("AjouterVoiture");
         }
@@ -34,8 +46,14 @@ namespace TP01AppWeb.Controllers
         [HttpPost]
         public IActionResult Voiture(Voiture voiture)
         {
+            try
+            {
+                contextEntr.Add(voiture);
+                contextEntr.SaveChanges();
+            }
+            catch (Exception) { }
+
             return View("AjouterVoiture");
         }
-
     }
 }

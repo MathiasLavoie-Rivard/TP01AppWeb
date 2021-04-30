@@ -3,7 +3,7 @@
     Layout = "_Layout";
 }
 <main role="main" class="pb-3 logoimage">
-    <form asp-action="AjouterSuccursale" method="post">
+    <form asp-action="Succursale" method="post">
         <div class="form-group">
             <label asp-for="Code"></label>
             <input asp-for="Code" class="form-control" />
@@ -32,7 +32,7 @@
             <label asp-for="NoTelephone"></label>
             <input asp-for="NoTelephone" class="form-control" />
         </div>
-        <button type="submit" class="btn btn-primary">Ajouter Utilisateur</button>
+        <button type="submit" class="btn btn-primary">Ajouter Succursale</button>
         <div asp-validation-summary="All">
 
         </div>

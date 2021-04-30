@@ -12,8 +12,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace TP01AppWeb.Controllers
 {
-
-
     [Authorize]
     public class HomeController : Controller, ReadMe
     {
@@ -30,13 +28,13 @@ namespace TP01AppWeb.Controllers
         private IDepot Depot { get; }
 
         [AllowAnonymous]
-        [HttpGet]
         public IActionResult Index()
         {
             List<string> auteurs = new List<string>();
             auteurs.Add("Xavier Hivon-Lefebvre");
             auteurs.Add("Mathias Lavoie-Rivard");
             ViewBag.Auteurs = auteurs;
+
             return View("Index");
         }
 
@@ -64,21 +62,20 @@ namespace TP01AppWeb.Controllers
                                 user, p_user.MDP, false, false);
                     if (result.Succeeded)
                     {
-                        Redirect("Home/Index");
+                        return RedirectToAction("Index", "Home");
                     }
                 }
             }
             return View("Connect");
         }
+
         [HttpGet]
-        [Authorize(Roles = "Admin")]
         public IActionResult AjouterUtilisateur()
         {
             return View("AjouterUtilisateur");
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AjouterUtilisateur(UserCreate p_user)
         {
             if (ModelState.IsValid)
