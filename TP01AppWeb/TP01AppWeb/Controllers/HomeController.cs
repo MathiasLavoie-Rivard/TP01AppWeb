@@ -88,7 +88,7 @@ namespace TP01AppWeb.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError(nameof(UserCreate.Password), result);
+                ModelState.AddModelError(nameof(UserCreate.TypeEmp), result);
                 return View();
             }
             return View();

@@ -7,18 +7,22 @@
         <div class="form-group">
             <label asp-for="NoVoiture"></label>
             <input asp-for="NoVoiture" class="form-control" />
+            <span asp-validation-for="NoVoiture" class="error"></span>
         </div>
         <div class="form-group">
             <label asp-for="Model"></label>
             <input asp-for="Model" class="form-control" />
+            <span asp-validation-for="Model" class="error"></span>
         </div>
         <div class="form-group">
             <label asp-for="Annee"></label>
             <input asp-for="Annee" class="form-control" />
+            <span asp-validation-for="Annee" class="error"></span>
         </div>
         <div class="form-group">
             <label asp-for="Millage"></label>
             <input asp-for="Millage" class="form-control" />
+            <span asp-validation-for="Millage" class="error"></span>
         </div>
         <div class="form-group">
             <label asp-for="Groupe"></label>
@@ -28,14 +32,13 @@
                     <option value="@g">@g.ToString()</option>
                 }
             </select>
+            <span asp-validation-for="Groupe" class="error"></span>
         </div>
         <div class="form-group">
             <label asp-for="SuccursaleId"></label>
             <input asp-for="SuccursaleId" class="form-control" />
+            <span asp-validation-for="SuccursaleId" class="error"></span>
         </div>
         <button type="submit" class="btn btn-primary">Ajouter Voiture</button>
-        <div asp-validation-summary="All" class="error">
-
-        </div>
     </form>
 </main>

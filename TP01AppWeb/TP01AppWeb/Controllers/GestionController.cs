@@ -40,7 +40,7 @@ namespace TP01AppWeb.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(nameof(succursale), result);
+                    ModelState.AddModelError(nameof(succursale.NoTelephone), result);
                     return View(succursale);
                 }
             }
@@ -65,7 +65,7 @@ namespace TP01AppWeb.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(nameof(voiture), result);
+                    ModelState.AddModelError(nameof(voiture.SuccursaleId), result);
                     return View(voiture);
                 }
             }

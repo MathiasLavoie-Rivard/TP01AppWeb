@@ -7,23 +7,23 @@
         <div class="form-group">
             <label asp-for="Nom"></label>
             <input asp-for="Nom" class="form-control" />
+            <span asp-validation-for="Nom" class="error"></span>
         </div>
         <div class="form-group">
             <label asp-for="Password"></label>
             <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="error"></span>
         </div>
         <div class="form-group">
-            <label>Type: </label>
+            <label asp-for="TypeEmp"></label>
             <select asp-for="TypeEmp" class="form-control">
                 @foreach (var g in Enum.GetValues(typeof(UserCreate.TypeEmployer)))
                 {
                     <option value="@g">@g.ToString()</option>
                 }
             </select>
+            <span asp-validation-for="TypeEmp" class="error"></span>
         </div>
         <button type="submit" class="btn btn-primary">Ajouter Utilisateur</button>
-        <div asp-validation-summary="All" class="error">
-
-        </div>
     </form>
 </main>
