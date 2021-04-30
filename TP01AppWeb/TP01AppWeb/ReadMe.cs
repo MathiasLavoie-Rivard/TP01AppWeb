@@ -21,7 +21,7 @@ namespace TP01AppWeb
                                     add-migration entreprise -context ContextEntreprise
                                     update-database -context ContextEntreprise
                                     add-migration identity -context ContextIdentity
-                                    update-database -context ContextUtilisateur
+                                    update-database -context ContextIdentity
                                     
         */
     }

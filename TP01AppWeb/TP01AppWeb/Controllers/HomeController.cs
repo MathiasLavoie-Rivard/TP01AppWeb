@@ -12,8 +12,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace TP01AppWeb.Controllers
 {
-
-
     [Authorize]
     public class HomeController : Controller, ReadMe
     {
