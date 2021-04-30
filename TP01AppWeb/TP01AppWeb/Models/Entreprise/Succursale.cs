@@ -24,7 +24,7 @@ namespace TP01AppWeb.Models.Entreprise
         [Display(Name = "Province:")]
         public string Province { get; set; }
         [Display(Name = "Code Postal:")]
-        [RegularExpression(@"^[A - Za - z]\d[A - Za - z][-] ?\d[A - Za - z]\d$",
+        [RegularExpression(@"^[A-Za-z]\d[A-Za-z]\d[A-Za-z]\d$",
          ErrorMessage = "Le format du code postal est invalide")]
         public string CodePostal { get; set; }
         [Display(Name = "Numéro de téléphone: \r\n Format: 0123456789")]
