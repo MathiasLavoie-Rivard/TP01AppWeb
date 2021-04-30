@@ -49,14 +49,12 @@ namespace TP01AppWeb.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin,Gérant,Commis")]
         public IActionResult Voiture()
         {
             return View("Voiture");
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin,Gérant,Commis")]
         public IActionResult Voiture(Voiture voiture)
         {
             if (ModelState.IsValid)
