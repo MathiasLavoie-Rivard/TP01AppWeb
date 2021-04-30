@@ -31,8 +31,44 @@ namespace TP01AppWeb.Controllers
         {
             try
             {
-                contextEntr.Add(succursale);
-                contextEntr.SaveChanges();
+                if (!contextEntr.Succursales.Any(s => s.Code == succursale.Code))
+                {
+                    if (!contextEntr.Succursales.Any(s => s.Rue == succursale.Rue && s.CodePostal == succursale.CodePostal))
+                    {
+                        if (!contextEntr.Succursales.Any(s => s.CodePostal == succursale.CodePostal && s.Ville != succursale.Ville))
+                        {
+                            if (!contextEntr.Succursales.Any(s => s.CodePostal == succursale.CodePostal && s.Province != succursale.Province))
+                            {
+                                contextEntr.Add(succursale);
+                                contextEntr.SaveChanges();
+                            }
+                            else
+                            {
+                                ModelState.AddModelError(nameof(succursale),
+                                    "Il y a un autre nom de province avec le même code postal");
+                                return View("AjouterVoiture");
+                            }
+                        }
+                        else
+                        {
+                            ModelState.AddModelError(nameof(succursale),
+                                "Il y a un autre nom de ville avec le même code postal");
+                            return View("AjouterVoiture");
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(nameof(succursale),
+                            "Il y a déjà une succursale avec le même nom de rue et code postal");
+                        return View("AjouterVoiture");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(nameof(succursale),
+                        "Le code de succursale est déjà utilisé");
+                    return View("AjouterVoiture");
+                }
             }
             catch (Exception) { }
 
