@@ -16,18 +16,16 @@ namespace TP01AppWeb.Controllers
     [Authorize]
     public class HomeController : Controller, ReadMe
     {
-        private readonly DepotEF depotef = new DepotEF();
+        private  IDepot depotef { get; }
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
 
         public HomeController(IDepot depot, UserManager<IdentityUser> userMgr, SignInManager<IdentityUser> siginMgr)
         {
-            Depot = depot;
+            depotef = depot;
             userManager = userMgr;
             signInManager = siginMgr;
         }
-
-        private IDepot Depot { get; }
 
         [AllowAnonymous]
         public IActionResult Index()
