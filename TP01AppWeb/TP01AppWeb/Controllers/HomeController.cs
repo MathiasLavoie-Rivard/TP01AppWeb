@@ -46,6 +46,14 @@ namespace TP01AppWeb.Controllers
             return View("Connect");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> DisconnectAsync()
+        {
+            await signInManager.SignOutAsync();
+
+            return RedirectToAction("Connect");
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
