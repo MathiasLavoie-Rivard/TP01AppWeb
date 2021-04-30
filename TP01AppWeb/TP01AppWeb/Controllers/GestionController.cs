@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TP01AppWeb.Models;
 using TP01AppWeb.Models.Entreprise;
 
 namespace TP01AppWeb.Controllers
@@ -11,6 +12,7 @@ namespace TP01AppWeb.Controllers
     [Authorize]
     public class GestionController : Controller, ReadMe
     {
+        private readonly DepotEF depotef = new DepotEF();
         private ContextEntreprise contextEntr;
 
         public GestionController(ContextEntreprise context)
@@ -29,48 +31,13 @@ namespace TP01AppWeb.Controllers
         [Authorize(Roles = "Admin,Gérant")]
         public IActionResult Succursale(Succursale succursale)
         {
-            try
+            string result = depotef.AjouterSuccursale(succursale, contextEntr);
+            if (result == "SUCCESS")
             {
-                if (!contextEntr.Succursales.Any(s => s.Code == succursale.Code))
-                {
-                    if (!contextEntr.Succursales.Any(s => s.Rue == succursale.Rue && s.CodePostal == succursale.CodePostal))
-                    {
-                        if (!contextEntr.Succursales.Any(s => s.CodePostal == succursale.CodePostal && s.Ville != succursale.Ville))
-                        {
-                            if (!contextEntr.Succursales.Any(s => s.CodePostal == succursale.CodePostal && s.Province != succursale.Province))
-                            {
-                                contextEntr.Add(succursale);
-                                contextEntr.SaveChanges();
-                            }
-                            else
-                            {
-                                ModelState.AddModelError(nameof(succursale),
-                                    "Il y a un autre nom de province avec le même code postal");
-                                return View("AjouterVoiture");
-                            }
-                        }
-                        else
-                        {
-                            ModelState.AddModelError(nameof(succursale),
-                                "Il y a un autre nom de ville avec le même code postal");
-                            return View("AjouterVoiture");
-                        }
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(nameof(succursale),
-                            "Il y a déjà une succursale avec le même nom de rue et code postal");
-                        return View("AjouterVoiture");
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError(nameof(succursale),
-                        "Le code de succursale est déjà utilisé");
-                    return View("AjouterVoiture");
-                }
+                return RedirectToAction("Index", "Home");
             }
-            catch (Exception) { }
+            ModelState.AddModelError(nameof(succursale),
+                               result);
 
             return View("AjouterSuccursale");
         }
@@ -84,41 +51,17 @@ namespace TP01AppWeb.Controllers
         [HttpPost]
         public IActionResult Voiture(Voiture voiture)
         {
-            try
-            {
-                if (contextEntr.Succursales.Any(s => s.Code == voiture.Succursale))
-                {
-                    if (!contextEntr.Voitures.Any(v => v.NoVoiture == voiture.NoVoiture))
-                    {
-                        if (!contextEntr.Voitures.Any(v => v.Model == voiture.Model && v.Groupe != voiture.Groupe))
-                        {
-                            contextEntr.Add(voiture);
-                            contextEntr.SaveChanges();
-                        }
-                        else
-                        {
-                            ModelState.AddModelError(nameof(voiture),
-                                "Il y a un autre groupe pour le même nom de modèle");
-                            return View("AjouterVoiture");
-                        }
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(nameof(voiture),
-                            "Le numéro de voiture est déjà utilisé");
-                        return View("AjouterVoiture");
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError(nameof(voiture),
-                        "Le code de succursale est invalide");
-                    return View("AjouterVoiture");
-                }
-            }
-            catch (Exception) { }
 
-            return View("AjouterVoiture");
+
+            string result = depotef.AjouterVoiture(voiture, contextEntr);
+            if (result == "SUCCESS")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            ModelState.AddModelError(nameof(voiture),
+                               result);
+
+            return View("AjouterSuccursale");
         }
     }
 }
