@@ -146,7 +146,6 @@ namespace TP01AppWeb.Models
                 }
                 else
                 {
-
                         result += "Le numéro de voiture est déjà utilisé";
                 }
             }
