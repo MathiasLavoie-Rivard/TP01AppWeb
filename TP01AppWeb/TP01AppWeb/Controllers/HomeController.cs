@@ -72,14 +72,14 @@ namespace TP01AppWeb.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Adin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult AjouterUtilisateur()
         {
             return View("AjouterUtilisateur");
         }
 
         [HttpPost]
-        [Authorize(Roles = "Adin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AjouterUtilisateur(UserCreate p_user)
         {
             if (ModelState.IsValid)
