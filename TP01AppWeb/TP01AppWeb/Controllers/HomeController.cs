@@ -77,29 +77,31 @@ namespace TP01AppWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult AjouterUtilisateur(UserCreate p_user)
+        public async Task<IActionResult> AjouterUtilisateur(UserCreate p_user)
         {
-            //ErrorViewModel e;
-            //Utilisateur currentUser = contextUser.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
-            //if (User.Identity.IsAuthenticated && currentUser.TypeEmp == Utilisateur.TypeEmployer.Admin)
-            //{
-            //    foreach (var u in Depot.Utilisateurs)
-            //    {
-            //        if (u.Nom == p_user.Nom)
-            //        {
-            //            e = new ErrorViewModel("Le code d'utilisateur existe déja");
-            //            return View("Error", e);
-            //        }
-            //    }
-            //    Depot.AjouterUtilisateur(p_user);
-            //    e = new ErrorViewModel("L'utilisateur a été ajouté avec succès");
-            //    return View("Error", e);
-            //}
-            //else
-            //{
-            //    e = new ErrorViewModel("Vous n'êtes pas administrateur");
-                return View("Error");
-            //}
+            if (ModelState.IsValid)
+            {
+                IdentityUser usr = new IdentityUser
+                {
+                    UserName = p_user.Nom
+                };
+                IdentityResult result =
+                    await userManager.CreateAsync(usr, p_user.Password);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(usr, p_user.TypeEmp.ToString());
+                    return View("Index");
+                }
+                else
+                {
+                    foreach (IdentityError erreur in result.Errors)
+                    {
+                        ModelState.AddModelError("", erreur.Description);
+                    }
+                }
+            }
+
+            return View("Index");
         }
     }
 }

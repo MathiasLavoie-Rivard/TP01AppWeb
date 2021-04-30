@@ -8,8 +8,6 @@ namespace TP01AppWeb.Models
 {
     public interface IDepot : ReadMe
     {
-        IEnumerable<UserCreate> Utilisateurs { get; }
-        UserCreate UtilisateurConn { get; }
         void AjouterUtilisateur(UserCreate p_utilisateur);
         bool Connexion(UserCreate p_utilisateur);
     }
