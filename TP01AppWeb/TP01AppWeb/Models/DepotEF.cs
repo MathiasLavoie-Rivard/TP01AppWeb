@@ -74,11 +74,10 @@ namespace TP01AppWeb.Models
             {
                 if (!p_contextEntr.Succursales.Any(s => s.Rue == p_succursale.Rue && s.CodePostal == p_succursale.CodePostal))
                 {
-                    if (!p_contextEntr.Succursales.Any(s => s.CodePostal == p_succursale.CodePostal && s.Ville != p_succursale.Ville))
+                    if (!p_contextEntr.Succursales.Any(s => s.CodePostal == p_succursale.CodePostal && s.Ville == p_succursale.Ville))
                     {
-                        if (!p_contextEntr.Succursales.Any(s => s.CodePostal == p_succursale.CodePostal && s.Province != p_succursale.Province))
+                        if (!p_contextEntr.Succursales.Any(s => s.CodePostal == p_succursale.CodePostal && s.Province == p_succursale.Province))
                         {
-
                             try
                             {
                                 p_contextEntr.Add(p_succursale);
