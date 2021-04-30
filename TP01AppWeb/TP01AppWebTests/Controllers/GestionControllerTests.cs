@@ -16,14 +16,17 @@ namespace TP01AppWebTests.Controllers
 {
     public class GestionControllerTests
     {
+        private static UserManager<IdentityUser> userManager;
+        private static SignInManager<IdentityUser> singInManager;
+        private static ContextEntreprise context;
+
+        private DepotEF depot = new DepotEF(userManager, singInManager, context);
+
 
         [Fact]
         public void AjouterSuccursale()
         {
             //Arrange
-            Mock<IDepot> mock = new Mock<IDepot>();
-            GestionController controller = new GestionController(mock.Object);
-
             Succursale succ = new Succursale();
             succ.Code = 123456;
             succ.CodePostal = "J5C9T6";
@@ -32,12 +35,13 @@ namespace TP01AppWebTests.Controllers
             succ.Province = "QC";
             succ.Rue = "Rue de la patate";
             succ.Ville = "Saint-Hyacinthe";
-
             
             //Act
-            controller.Succursale(succ);
+            depot.AjouterSuccursale(succ);
+            Succursale succResult = depot.Succursales.FirstOrDefault(s => s.Code == 123456);
 
-            mock.Setup(x => x.Succursales).
+            //Assert
+            Assert.Equal(succResult, succ);
 
         }
     }
