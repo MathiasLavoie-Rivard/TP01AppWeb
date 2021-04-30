@@ -10,6 +10,10 @@ namespace TP01AppWeb.Models
 {
     public interface IDepot : ReadMe
     {
+
+        public IQueryable<Succursale> Succursales { get; }
+        public IQueryable<Voiture> Voitures { get; }
+        public IQueryable<IdentityUser> Users { get; }
         Task<string> AjouterUtilisateur(UserCreate p_user);
         Task<bool> Connexion(UserLogin p_user);
         Task DeconnexionAsync();
