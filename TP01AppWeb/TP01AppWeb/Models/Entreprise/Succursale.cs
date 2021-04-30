@@ -11,14 +11,14 @@ namespace TP01AppWeb.Models.Entreprise
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage ="Veuillez entrez un numéro de succursale")]
         [Display(Name = "Code de succursale:")]
         [Range(1, int.MaxValue, ErrorMessage = "Le code doit être un entier positif")]
-        public int Code { get; set; }
-        [Required]
+        public int? Code { get; set; }
+        [Required(ErrorMessage = "Veuillez entrez un numéro civic")]
         [Range(1, int.MaxValue, ErrorMessage = "Le numéro civic doit être un entier positif")]
         [Display(Name = "Numéro civic:")]
-        public int NoCivic { get; set; }
+        public int? NoCivic { get; set; }
         [Required]
         [Display(Name = "Nom de rue:")]
         public string Rue { get; set; }

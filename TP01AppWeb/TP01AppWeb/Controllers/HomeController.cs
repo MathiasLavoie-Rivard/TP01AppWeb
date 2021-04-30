@@ -17,8 +17,6 @@ namespace TP01AppWeb.Controllers
     public class HomeController : Controller, ReadMe
     {
         private  IDepot Depot { get; }
-        
-
         public HomeController(IDepot depot)
         {
             Depot = depot;
