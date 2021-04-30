@@ -5,18 +5,20 @@
 <main role="main" class="pb-3 logoimage">
     <form asp-action="AjouterUtilisateur" method="post">
         <div class="form-group">
-            <label asp-for="Nom">Code d'utilisateur: </label>
+            <label asp-for="Nom"></label>
             <input asp-for="Nom" class="form-control" />
         </div>
         <div class="form-group">
-            <label asp-for="Password">Mot de passe:</label>
+            <label asp-for="Password"></label>
             <input asp-for="Password" class="form-control" />
         </div>
         <div class="form-group">
             <label>Type: </label>
             <select asp-for="TypeEmp" class="form-control">
-                <option value="@UserCreate.TypeEmployer.Commis">Commis</option>
-                <option value="@UserCreate.TypeEmployer.Gérant">Gérant</option>
+                @foreach (var g in Enum.GetValues(typeof(UserCreate.TypeEmployer)))
+                {
+                    <option value="@g">@g.ToString()</option>
+                }
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Ajouter Utilisateur</button>

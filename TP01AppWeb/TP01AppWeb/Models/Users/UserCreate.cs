@@ -17,11 +17,14 @@ namespace TP01AppWeb.Models.Users
         }
         [RegularExpression("^[a-zA-Z0-9]{6}$", ErrorMessage = "Le code doit être une chaîne de 6 caractères alphanumériques")]
         [Required(ErrorMessage = "Veuillez entrer un nom")]
+        [Display(Name = "Code d'utilisateur: ")]
         public string Nom { get; set; }
         [RegularExpression("^(?=.*\\d).{8,}$", ErrorMessage = "Le mot de passe doit avoir au moins un chiffre et avoir au moins 8 caractères")]
         [Required(ErrorMessage = "Veuillez entrer un mot de passe")]
+        [Display(Name = "Mot de passe: ")]
         public string Password { get; set; }
         [Required(ErrorMessage ="Veuillez choisir le type")]
+        [Display(Name = "Type: ")]
         public TypeEmployer TypeEmp { get; set; }
     }
 }
