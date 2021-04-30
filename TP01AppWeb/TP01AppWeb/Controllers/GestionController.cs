@@ -32,16 +32,20 @@ namespace TP01AppWeb.Controllers
         [Authorize(Roles = "Admin,Gérant")]
         public IActionResult Succursale(Succursale succursale)
         {
-            string result = depotef.AjouterSuccursale(succursale, contextEntr);
-            if (result == "SUCCESS")
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Index", "Home");
+                string result = depotef.AjouterSuccursale(succursale, contextEntr);
+                if (result == "SUCCESS")
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError(nameof(succursale), result);
+                    return View();
+                }
             }
-            else
-            {
-                ModelState.AddModelError(nameof(succursale), result);
-                return View();
-            }
+            return View();
         }
 
         [HttpGet]
@@ -53,16 +57,20 @@ namespace TP01AppWeb.Controllers
         [HttpPost]
         public IActionResult Voiture(Voiture voiture)
         {
-            string result = depotef.AjouterVoiture(voiture, contextEntr);
-            if (result == "SUCCESS")
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Index", "Home");
+                string result = depotef.AjouterVoiture(voiture, contextEntr);
+                if (result == "SUCCESS")
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError(nameof(voiture), result);
+                    return View();
+                }
             }
-            else
-            {
-                ModelState.AddModelError(nameof(voiture), result);
-                return View();
-            }
+            return View();
         }
     }
 }
