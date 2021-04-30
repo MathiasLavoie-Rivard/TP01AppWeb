@@ -56,7 +56,7 @@ namespace TP01AppWeb
             }).AddEntityFrameworkStores<ContextIdentity>();
 
 
-            services.AddSingleton<IDepot, DepotEF>();
+            services.AddTransient<IDepot, DepotEF>();
             services.AddControllersWithViews();
 
             services.ConfigureApplicationCookie(options =>
@@ -69,7 +69,7 @@ namespace TP01AppWeb
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<IdentityUser> userMgr, SignInManager<IdentityUser> signinMgr, ContextEntreprise contextEnt)
         {
             if (env.IsDevelopment())
             {

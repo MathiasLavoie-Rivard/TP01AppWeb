@@ -10,11 +10,10 @@ namespace TP01AppWeb.Models
 {
     public interface IDepot : ReadMe
     {
-        Task<string> AjouterUtilisateur(UserCreate p_user, UserManager<IdentityUser> p_usrManager);
-        Task<bool> Connexion(UserLogin p_user, UserManager<IdentityUser> p_usrManager,
-            SignInManager<IdentityUser> p_SignManager);
-
-        string AjouterSuccursale(Succursale p_succursale, ContextEntreprise p_contextEntr);
-        string AjouterVoiture(Voiture p_Voiture, ContextEntreprise p_contextEntr);
+        Task<string> AjouterUtilisateur(UserCreate p_user);
+        Task<bool> Connexion(UserLogin p_user);
+        Task DeconnexionAsync();
+        string AjouterSuccursale(Succursale p_succursale);
+        string AjouterVoiture(Voiture p_Voiture);
     }
 }

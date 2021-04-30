@@ -16,15 +16,12 @@ namespace TP01AppWeb.Controllers
     [Authorize]
     public class HomeController : Controller, ReadMe
     {
-        private  IDepot depotef { get; }
-        private readonly UserManager<IdentityUser> userManager;
-        private readonly SignInManager<IdentityUser> signInManager;
+        private  IDepot Depot { get; }
+        
 
-        public HomeController(IDepot depot, UserManager<IdentityUser> userMgr, SignInManager<IdentityUser> siginMgr)
+        public HomeController(IDepot depot)
         {
-            depotef = depot;
-            userManager = userMgr;
-            signInManager = siginMgr;
+            Depot = depot;
         }
 
         [AllowAnonymous]
@@ -49,8 +46,7 @@ namespace TP01AppWeb.Controllers
         [HttpGet]
         public async Task<IActionResult> DisconnectAsync()
         {
-            await signInManager.SignOutAsync();
-
+            await Depot.DeconnexionAsync();
             return RedirectToAction("Connect");
         }
 
@@ -61,7 +57,7 @@ namespace TP01AppWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (await depotef.Connexion(p_user, userManager, signInManager))
+                if (await Depot.Connexion(p_user))
                 {
                     return RedirectToAction("Index", "Home");
                 }
@@ -89,7 +85,7 @@ namespace TP01AppWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                string result = await depotef.AjouterUtilisateur(p_user, userManager);
+                string result = await Depot.AjouterUtilisateur(p_user);
                 if (result == "SUCCESS")
                 {
                     return RedirectToAction("Index", "Home");

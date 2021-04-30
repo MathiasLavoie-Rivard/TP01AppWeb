@@ -11,20 +11,26 @@ namespace TP01AppWeb.Models
 {
     public class DepotEF : IDepot, ReadMe
     {
-        public DepotEF()
-        {
 
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly SignInManager<IdentityUser> signInManager;
+        private ContextEntreprise contextEntr;
+
+        public DepotEF(UserManager<IdentityUser> userMgr, SignInManager<IdentityUser> signinMgr, ContextEntreprise contextEnt)
+        {
+            contextEntr = contextEnt;
+            userManager = userMgr;
+            signInManager = signinMgr;
         }
 
-        public async Task<bool> Connexion(UserLogin p_user, UserManager<IdentityUser> p_usrManager,
-            SignInManager<IdentityUser> p_SignManager)
+        public async Task<bool> Connexion(UserLogin p_user)
         {
-            IdentityUser user = await p_usrManager.FindByNameAsync(p_user.Login);
+            IdentityUser user = await userManager.FindByNameAsync(p_user.Login);
             if (user != null)
             {
-                await p_SignManager.SignOutAsync();
+                await signInManager.SignOutAsync();
                 Microsoft.AspNetCore.Identity.SignInResult result =
-                        await p_SignManager.PasswordSignInAsync(
+                        await signInManager.PasswordSignInAsync(
                             user, p_user.MDP, false, false);
                 if (result.Succeeded)
                 {
@@ -36,19 +42,19 @@ namespace TP01AppWeb.Models
             return false;
         }
 
-        public async Task<string> AjouterUtilisateur(UserCreate p_user, UserManager<IdentityUser> p_usrManager)
+        public async Task<string> AjouterUtilisateur(UserCreate p_user)
         {
             IdentityUser usr = new IdentityUser
             {
                 UserName = p_user.Nom,
             };
             IdentityResult result =
-                await p_usrManager.CreateAsync(usr, p_user.Password);
+                await userManager.CreateAsync(usr, p_user.Password);
             if (result.Succeeded)
             {
                 try
                 {
-                    await p_usrManager.AddToRoleAsync(usr, p_user.TypeEmp.ToString());
+                    await userManager.AddToRoleAsync(usr, p_user.TypeEmp.ToString());
                 }
                 catch (Exception)
                 {
@@ -66,22 +72,22 @@ namespace TP01AppWeb.Models
 
         }
 
-        public string AjouterSuccursale(Succursale p_succursale, ContextEntreprise p_contextEntr)
+        public string AjouterSuccursale(Succursale p_succursale)
         {
             string result = "";
 
-            if (!p_contextEntr.Succursales.Any(s => s.Code == p_succursale.Code))
+            if (!contextEntr.Succursales.Any(s => s.Code == p_succursale.Code))
             {
-                if (!p_contextEntr.Succursales.Any(s => s.Rue == p_succursale.Rue && s.CodePostal == p_succursale.CodePostal))
+                if (!contextEntr.Succursales.Any(s => s.Rue == p_succursale.Rue && s.CodePostal == p_succursale.CodePostal))
                 {
-                    if (!p_contextEntr.Succursales.Any(s => s.CodePostal == p_succursale.CodePostal && s.Ville == p_succursale.Ville))
+                    if (!contextEntr.Succursales.Any(s => s.CodePostal == p_succursale.CodePostal && s.Ville == p_succursale.Ville))
                     {
-                        if (!p_contextEntr.Succursales.Any(s => s.CodePostal == p_succursale.CodePostal && s.Province == p_succursale.Province))
+                        if (!contextEntr.Succursales.Any(s => s.CodePostal == p_succursale.CodePostal && s.Province == p_succursale.Province))
                         {
                             try
                             {
-                                p_contextEntr.Add(p_succursale);
-                                p_contextEntr.SaveChanges();
+                                contextEntr.Add(p_succursale);
+                                contextEntr.SaveChanges();
                                 result = "SUCCESS";
                             }
                             catch (Exception)
@@ -112,19 +118,19 @@ namespace TP01AppWeb.Models
             return result;
         }
 
-        public string AjouterVoiture(Voiture p_Voiture, ContextEntreprise p_contextEntr)
+        public string AjouterVoiture(Voiture p_Voiture)
         {
             string result= "";
-            if (p_contextEntr.Succursales.Any(s => s.Code == p_Voiture.SuccursaleId))
+            if (contextEntr.Succursales.Any(s => s.Code == p_Voiture.SuccursaleId))
             {
-                if (!p_contextEntr.Voitures.Any(v => v.NoVoiture == p_Voiture.NoVoiture))
+                if (!contextEntr.Voitures.Any(v => v.NoVoiture == p_Voiture.NoVoiture))
                 {
-                    if (!p_contextEntr.Voitures.Any(v => v.Model == p_Voiture.Model && v.Groupe != p_Voiture.Groupe))
+                    if (!contextEntr.Voitures.Any(v => v.Model == p_Voiture.Model && v.Groupe != p_Voiture.Groupe))
                     {
                         try
                         {
-                            p_contextEntr.Add(p_Voiture);
-                            p_contextEntr.SaveChanges();
+                            contextEntr.Add(p_Voiture);
+                            contextEntr.SaveChanges();
                             result = "SUCCESS";
                         }
                         catch (Exception)
@@ -149,6 +155,11 @@ namespace TP01AppWeb.Models
                 result += "Le code de succursale est invalide";
             }
             return result;
+        }
+
+        public async Task DeconnexionAsync()
+        {
+            await signInManager.SignOutAsync();
         }
     }
 }

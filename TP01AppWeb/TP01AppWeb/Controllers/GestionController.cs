@@ -13,12 +13,11 @@ namespace TP01AppWeb.Controllers
     [Authorize]
     public class GestionController : Controller, ReadMe
     {
-        DepotEF depotef = new DepotEF();
-        private ContextEntreprise contextEntr;
+        private IDepot Depot { get; }
 
-        public GestionController(ContextEntreprise context)
+        public GestionController(IDepot depot)
         {
-            contextEntr = context;
+            Depot = depot;
         }
 
         [HttpGet]
@@ -34,7 +33,7 @@ namespace TP01AppWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                string result = depotef.AjouterSuccursale(succursale, contextEntr);
+                string result = Depot.AjouterSuccursale(succursale);
                 if (result == "SUCCESS")
                 {
                     return RedirectToAction("Index", "Home");
@@ -59,7 +58,7 @@ namespace TP01AppWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                string result = depotef.AjouterVoiture(voiture, contextEntr);
+                string result = Depot.AjouterVoiture(voiture);
                 if (result == "SUCCESS")
                 {
                     return RedirectToAction("Index", "Home");
