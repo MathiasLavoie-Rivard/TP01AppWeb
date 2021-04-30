@@ -34,6 +34,7 @@ namespace TP01AppWeb.Controllers
             auteurs.Add("Xavier Hivon-Lefebvre");
             auteurs.Add("Mathias Lavoie-Rivard");
             ViewBag.Auteurs = auteurs;
+
             return View("Index");
         }
 
@@ -61,7 +62,7 @@ namespace TP01AppWeb.Controllers
                                 user, p_user.MDP, false, false);
                     if (result.Succeeded)
                     {
-                        return View("Index");
+                        return RedirectToAction("Index", "Home");
                     }
                 }
             }
