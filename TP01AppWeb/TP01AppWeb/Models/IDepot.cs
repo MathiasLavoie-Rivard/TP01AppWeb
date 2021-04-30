@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +9,8 @@ namespace TP01AppWeb.Models
 {
     public interface IDepot : ReadMe
     {
-        void AjouterUtilisateur(UserCreate p_utilisateur);
-        bool Connexion(UserCreate p_utilisateur);
+        Task<string> AjouterUtilisateur(UserCreate p_user, UserManager<IdentityUser> p_usrManager);
+        Task<bool> Connexion(UserLogin p_user, UserManager<IdentityUser> p_usrManager,
+            SignInManager<IdentityUser> p_SignManager);
     }
 }

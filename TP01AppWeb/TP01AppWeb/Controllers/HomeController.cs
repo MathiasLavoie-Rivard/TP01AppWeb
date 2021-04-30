@@ -9,16 +9,18 @@ using TP01AppWeb.Models.Entreprise;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace TP01AppWeb.Controllers
 {
     [Authorize]
     public class HomeController : Controller, ReadMe
     {
-        private UserManager<IdentityUser> userManager;
-        private SignInManager<IdentityUser> signInManager;
+        private readonly DepotEF depotef = new DepotEF();
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly SignInManager<IdentityUser> signInManager;
 
-        public HomeController(IDepot depot, UserManager<IdentityUser> userMgr, SignInManager<IdentityUser> siginMgr )
+        public HomeController(IDepot depot, UserManager<IdentityUser> userMgr, SignInManager<IdentityUser> siginMgr)
         {
             Depot = depot;
             userManager = userMgr;
@@ -61,20 +63,19 @@ namespace TP01AppWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityUser user = await userManager.FindByNameAsync(p_user.Login);
-                if (user != null)
+                if (await depotef.Connexion(p_user, userManager, signInManager))
                 {
-                    await signInManager.SignOutAsync();
-                    Microsoft.AspNetCore.Identity.SignInResult result =
-                            await signInManager.PasswordSignInAsync(
-                                user, p_user.MDP, false, false);
-                    if (result.Succeeded)
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
+                    return RedirectToAction("Index", "Home");
                 }
+                else
+                {
+                    ModelState.AddModelError(nameof(UserLogin.Login),
+                        "Mot de passe ou utilisateur invalide");
+                    return View();
+                }
+                
             }
-            return View("Connect");
+            return View();
         }
 
         [HttpGet]
@@ -90,27 +91,15 @@ namespace TP01AppWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityUser usr = new IdentityUser
+                string result = await depotef.AjouterUtilisateur(p_user, userManager);
+                if (result != "SUCCESS")
                 {
-                    UserName = p_user.Nom
-                };
-                IdentityResult result =
-                    await userManager.CreateAsync(usr, p_user.Password);
-                if (result.Succeeded)
-                {
-                    await userManager.AddToRoleAsync(usr, p_user.TypeEmp.ToString());
-                    return RedirectToAction("Index", "Home");
+                    ModelState.AddModelError(nameof(UserCreate.Password), result);
                 }
-                else
-                {
-                    foreach (IdentityError erreur in result.Errors)
-                    {
-                        ModelState.AddModelError("", erreur.Description);
-                    }
-                }
+                    return View();
             }
 
-            return View();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -8,9 +8,9 @@ namespace TP01AppWeb.Models.Users
 {
     public class UserLogin : ReadMe
     {
-        [Required]
+        [Required(ErrorMessage = "Nom d'utilisateur manquant")]
         public string Login { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Mot de passe manquant")]
         public string MDP { get; set; }
     }
 }

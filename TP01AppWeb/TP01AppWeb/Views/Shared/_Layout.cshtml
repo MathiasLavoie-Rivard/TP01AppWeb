@@ -6,12 +6,9 @@
 <body>
     <header class="navbar navbar-expand-sm navbar-light bg-white border-bottom container">
         <ul>
-            @if (User.Identity.IsAuthenticated)
-            {
                 <li>
                     <a href="@Url.Action("Index","Home")">ACCUEIL</a>
                 </li>
-            }
             @if (User.IsInRole("Admin"))
             {
                 <li>

@@ -62,9 +62,8 @@ namespace TP01AppWeb
             services.ConfigureApplicationCookie(options =>
                 options.LoginPath = "/Home/Connect");
 
-            //TODO metter une page de login failed
             services.ConfigureApplicationCookie(options =>
-               options.AccessDeniedPath = "/Home/Index");
+               options.AccessDeniedPath = "/Home/Connect");
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
@@ -93,7 +92,7 @@ namespace TP01AppWeb
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Connect}");
+                    pattern: "{controller=Home}/{action=Index}");
             });
 
             app.UseEndpoints(endpoints =>
