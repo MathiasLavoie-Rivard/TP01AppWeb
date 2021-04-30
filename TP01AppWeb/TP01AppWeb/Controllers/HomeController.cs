@@ -30,6 +30,7 @@ namespace TP01AppWeb.Controllers
         private IDepot Depot { get; }
 
         [AllowAnonymous]
+        [HttpGet]
         public IActionResult Index()
         {
             List<string> auteurs = new List<string>();
@@ -63,20 +64,21 @@ namespace TP01AppWeb.Controllers
                                 user, p_user.MDP, false, false);
                     if (result.Succeeded)
                     {
-                        return View("Index");
+                        Redirect("Home/Index");
                     }
                 }
             }
             return View("Connect");
         }
-
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult AjouterUtilisateur()
         {
             return View("AjouterUtilisateur");
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AjouterUtilisateur(UserCreate p_user)
         {
             if (ModelState.IsValid)
