@@ -23,6 +23,11 @@ namespace TP01AppWeb.Models
             signInManager = signinMgr;
         }
 
+        public IQueryable<Succursale> Succursales => contextEntr.Succursales;
+        public IQueryable<Voiture> Voitures => contextEntr.Voitures;
+        public IQueryable<IdentityUser> Users => userManager.Users;
+
+
         public async Task<bool> Connexion(UserLogin p_user)
         {
             IdentityUser user = await userManager.FindByNameAsync(p_user.Login);
