@@ -8,6 +8,7 @@ using TP01AppWeb.Models.Entreprise;
 
 namespace TP01AppWeb.Controllers
 {
+    [Authorize]
     public class GestionController : Controller, ReadMe
     {
         private ContextEntreprise contextEntr;
