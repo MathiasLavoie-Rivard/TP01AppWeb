@@ -91,14 +91,23 @@ namespace TP01AppWeb.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (contextEntr.Succursales.Any(s => s.Code == voiture.Succursale))
+                    if (contextEntr.Succursales.Any(s => s.Code == voiture.SuccursaleId))
                     {
                         if (!contextEntr.Voitures.Any(v => v.NoVoiture == voiture.NoVoiture))
                         {
                             if (!contextEntr.Voitures.Any(v => v.Model == voiture.Model && v.Groupe != voiture.Groupe))
                             {
-                                contextEntr.Add(voiture);
-                                contextEntr.SaveChanges();
+                                if (contextEntr.Succursales.Any(s => s.Code == voiture.SuccursaleId))
+                                {
+                                    contextEntr.Add(voiture);
+                                    contextEntr.SaveChanges();
+                                }
+                                else
+                                {
+                                    ModelState.AddModelError(nameof(voiture),
+                                        "La succursale n'existe pas.");
+                                    return View(voiture);
+                                }
                             }
                             else
                             {

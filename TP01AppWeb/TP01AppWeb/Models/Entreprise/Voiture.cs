@@ -31,8 +31,8 @@ namespace TP01AppWeb.Models.Entreprise
         public int Millage { get; set; }
         [Required]
         [Range(1, int.MaxValue)]
-        [Display(Name = "Groupe:")]
-        public int Succursale { get; set; }
+        [Display(Name = "Code de succursale:")]
+        public int SuccursaleId { get; set; }
 
         public enum Groupes
         {

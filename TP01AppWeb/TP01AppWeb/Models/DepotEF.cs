@@ -116,7 +116,7 @@ namespace TP01AppWeb.Models
         public string AjouterVoiture(Voiture p_Voiture, ContextEntreprise p_contextEntr)
         {
             string result= "";
-            if (p_contextEntr.Succursales.Any(s => s.Code == p_Voiture.Succursale))
+            if (p_contextEntr.Succursales.Any(s => s.Code == p_Voiture.SuccursaleId))
             {
                 if (!p_contextEntr.Voitures.Any(v => v.NoVoiture == p_Voiture.NoVoiture))
                 {
