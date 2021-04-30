@@ -22,7 +22,7 @@ namespace TP01AppWeb.Controllers
         [Authorize(Roles = "Admin,Gérant")]
         public IActionResult Succursale()
         {
-            return View("AjouterSuccursale");
+            return View("Succursale");
         }
 
         [HttpPost]
@@ -35,9 +35,9 @@ namespace TP01AppWeb.Controllers
                 {
                     if (!contextEntr.Succursales.Any(s => s.Rue == succursale.Rue && s.CodePostal == succursale.CodePostal))
                     {
-                        if (!contextEntr.Succursales.Any(s => s.CodePostal == succursale.CodePostal && s.Ville != succursale.Ville))
+                        if (!contextEntr.Succursales.Any(s => s.CodePostal == succursale.CodePostal && s.Ville == succursale.Ville))
                         {
-                            if (!contextEntr.Succursales.Any(s => s.CodePostal == succursale.CodePostal && s.Province != succursale.Province))
+                            if (!contextEntr.Succursales.Any(s => s.CodePostal == succursale.CodePostal && s.Province == succursale.Province))
                             {
                                 contextEntr.Add(succursale);
                                 contextEntr.SaveChanges();
@@ -46,39 +46,39 @@ namespace TP01AppWeb.Controllers
                             {
                                 ModelState.AddModelError(nameof(succursale),
                                     "Il y a un autre nom de province avec le même code postal");
-                                return View("AjouterVoiture");
+                                return View(succursale);
                             }
                         }
                         else
                         {
                             ModelState.AddModelError(nameof(succursale),
                                 "Il y a un autre nom de ville avec le même code postal");
-                            return View("AjouterVoiture");
+                            return View(succursale);
                         }
                     }
                     else
                     {
                         ModelState.AddModelError(nameof(succursale),
                             "Il y a déjà une succursale avec le même nom de rue et code postal");
-                        return View("AjouterVoiture");
+                        return View(succursale);
                     }
                 }
                 else
                 {
                     ModelState.AddModelError(nameof(succursale),
                         "Le code de succursale est déjà utilisé");
-                    return View("AjouterVoiture");
+                    return View(succursale);
                 }
             }
             catch (Exception) { }
 
-            return View("AjouterSuccursale");
+            return RedirectToAction("Index","Home");
         }
 
         [HttpGet]
         public IActionResult Voiture()
         {
-            return View("AjouterVoiture");
+            return View("Voiture");
         }
 
         [HttpPost]
@@ -118,7 +118,7 @@ namespace TP01AppWeb.Controllers
             }
             catch (Exception) { }
 
-            return View("AjouterVoiture");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
