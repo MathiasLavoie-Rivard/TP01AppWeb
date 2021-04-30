@@ -12,10 +12,25 @@
                     <a href="@Url.Action("Index","Home")">ACCUEIL</a>
                 </li>
             }
-            @if (true)
+            @if (User.IsInRole("Admin"))
             {
                 <li>
-                    <a href="@Url.Action("AjouterUtilisateur","Home")">AJOUTER UN UTILISATEUR</a>
+                    <a href="@Url.Action("AjouterUtilisateur", "Home")">AJOUTER UN UTILISATEUR</a>
+                </li>
+            }
+            @if (User.IsInRole("Gérant") | User.IsInRole("Admin"))
+            {
+                <li>
+                    <a href="@Url.Action("Succursale","Gestion")">AJOUTER UNE SUCCURSALE</a>
+                </li>
+            }
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li>
+                    <a href="@Url.Action("Voiture", "Gestion")">AJOUTER UNE VOITURE</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Disconnect", "Home")">DÉCONNEXION</a>
                 </li>
             }
             @if (!User.Identity.IsAuthenticated)
