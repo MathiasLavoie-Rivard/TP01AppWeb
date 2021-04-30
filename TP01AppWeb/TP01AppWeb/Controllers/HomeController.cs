@@ -110,7 +110,7 @@ namespace TP01AppWeb.Controllers
                 }
             }
 
-            return RedirectToAction("Index", "Home");
+            return View();
         }
     }
 }
