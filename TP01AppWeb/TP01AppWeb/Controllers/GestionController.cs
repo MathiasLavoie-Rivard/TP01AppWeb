@@ -50,8 +50,35 @@ namespace TP01AppWeb.Controllers
         {
             try
             {
-                contextEntr.Add(voiture);
-                contextEntr.SaveChanges();
+                if (contextEntr.Succursales.Any(s => s.Code == voiture.Succursale))
+                {
+                    if (!contextEntr.Voitures.Any(v => v.NoVoiture == voiture.NoVoiture))
+                    {
+                        if (!contextEntr.Voitures.Any(v => v.Model == voiture.Model && v.Groupe != voiture.Groupe))
+                        {
+                            contextEntr.Add(voiture);
+                            contextEntr.SaveChanges();
+                        }
+                        else
+                        {
+                            ModelState.AddModelError(nameof(voiture),
+                                "Il y a un autre groupe pour le même nom de modèle");
+                            return View("AjouterVoiture");
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(nameof(voiture),
+                            "Le numéro de voiture est déjà utilisé");
+                        return View("AjouterVoiture");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(nameof(voiture),
+                        "Le code de succursale est invalide");
+                    return View("AjouterVoiture");
+                }
             }
             catch (Exception) { }
 

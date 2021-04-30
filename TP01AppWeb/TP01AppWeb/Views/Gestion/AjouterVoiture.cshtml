@@ -25,9 +25,13 @@
             <select asp-for="Groupe" class="form-control">
                 @foreach (var g in Enum.GetValues(typeof(Voiture.Groupes)))
                 {
-                <option value="@g">@g.ToString()</option>
+                    <option value="@g">@g.ToString()</option>
                 }
             </select>
+        </div>
+        <div class="form-group">
+            <label asp-for="Succursale"></label>
+            <input asp-for="Succursale" class="form-control" />
         </div>
         <button type="submit" class="btn btn-primary">Ajouter Voiture</button>
         <div asp-validation-summary="All">

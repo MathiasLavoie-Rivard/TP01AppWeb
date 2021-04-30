@@ -10,11 +10,16 @@ namespace TP01AppWeb.Models.Entreprise
     {
         [Key]
         public int Id { get; set; }
+        [Range(1, int.MaxValue)]
         public int NoVoiture { get; set; }
         public string Model { get; set; }
+        [Range(1900, 9999)]
         public int Annee { get; set; }
         public Groupes Groupe { get; set; }
+        [Range(1, int.MaxValue)]
         public int Millage { get; set; }
+        [Range(1, int.MaxValue)]
+        public int Succursale { get; set; }
 
         public enum Groupes
         {
