@@ -13,6 +13,7 @@ namespace TP01AppWeb.Models.Users
     {
 
         public ContextIdentity(DbContextOptions<ContextIdentity> options)
-            : base(options) { }
+            : base(options) {
+        }
     }
 }

@@ -43,7 +43,6 @@ namespace TP01AppWeb
 
             services.AddIdentity<IdentityUser, IdentityRole>(opts =>
             {
-                opts.User.RequireUniqueEmail = true;
                 // Par défaut a–z, A–Z, et 0–9 et les carctères - , _ @
                 // Cette propriété n'est pas une expression rationnelle, donc tous les
                 // valide doivent être énumérés explicitement dans la chaîne.
@@ -71,7 +70,7 @@ namespace TP01AppWeb
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ContextIdentity contextU, ContextEntreprise contextE)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -103,6 +102,8 @@ namespace TP01AppWeb
                     name: "Gestion",
                     pattern: "{controller=Gestion}/{action?}");
             });
+
+            PeuplerUtilisateurs.CréerCompteAdmin(app.ApplicationServices, Configuration);
         }
     }
 }
