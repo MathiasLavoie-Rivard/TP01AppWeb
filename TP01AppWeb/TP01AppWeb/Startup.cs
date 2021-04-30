@@ -64,7 +64,7 @@ namespace TP01AppWeb
 
             //TODO metter une page de login failed
             services.ConfigureApplicationCookie(options =>
-               options.AccessDeniedPath = "/Home/Indes");
+               options.AccessDeniedPath = "/Home/Index");
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

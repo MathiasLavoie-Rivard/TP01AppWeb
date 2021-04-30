@@ -49,7 +49,8 @@ namespace TP01AppWeb.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Connect(UserLogin p_user)
+        public async Task<IActionResult> Connect(UserLogin p_user,
+                string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -62,7 +63,8 @@ namespace TP01AppWeb.Controllers
                                 user, p_user.MDP, false, false);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Index", "Home");
+                        //return RedirectToAction("Index", "Home");
+                        return Redirect(returnUrl ?? "/");
                     }
                 }
             }
@@ -70,12 +72,14 @@ namespace TP01AppWeb.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Adin")]
         public IActionResult AjouterUtilisateur()
         {
             return View("AjouterUtilisateur");
         }
 
         [HttpPost]
+        [Authorize(Roles = "Adin")]
         public async Task<IActionResult> AjouterUtilisateur(UserCreate p_user)
         {
             if (ModelState.IsValid)
