@@ -11,9 +11,10 @@ namespace TP01AppWeb.Models.Entreprise
     {
         [Key]
         public int Id { get; set; }
-        
         [Display(Name = "Code de succursale:")]
+        [Range(1, int.MaxValue, ErrorMessage = "Le code doit être un entier positif")]
         public int Code { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Le numéro civic doit être un entier positif")]
         [Display(Name = "Numéro civic:")]
         public int NoCivic { get; set; }
         [Display(Name = "Nom de rue:")]
@@ -23,8 +24,12 @@ namespace TP01AppWeb.Models.Entreprise
         [Display(Name = "Province:")]
         public string Province { get; set; }
         [Display(Name = "Code Postal:")]
+        [RegularExpression(@"^[A - Za - z]\d[A - Za - z][-] ?\d[A - Za - z]\d$",
+         ErrorMessage = "Le format du code postal est invalide")]
         public string CodePostal { get; set; }
-        [Display(Name = "Numéro de téléphone:")]
+        [Display(Name = "Numéro de téléphone: \r\n Format: 0123456789")]
+        [RegularExpression(@"^\d{10}$",
+         ErrorMessage = "Le format du code postal est invalide")]
         public string NoTelephone { get; set; }
         public List<Voiture> Voiture { get; set; }
     }
