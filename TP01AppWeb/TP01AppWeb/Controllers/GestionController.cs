@@ -42,10 +42,10 @@ namespace TP01AppWeb.Controllers
                 else
                 {
                     ModelState.AddModelError(nameof(succursale), result);
-                    return View();
+                    return View(succursale);
                 }
             }
-            return View();
+            return View(succursale);
         }
 
         [HttpGet]
@@ -67,10 +67,10 @@ namespace TP01AppWeb.Controllers
                 else
                 {
                     ModelState.AddModelError(nameof(voiture), result);
-                    return View();
+                    return View(voiture);
                 }
             }
-            return View();
+            return View(voiture);
         }
     }
 }
