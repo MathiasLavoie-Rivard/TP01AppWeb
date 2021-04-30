@@ -62,6 +62,44 @@ namespace TP01AppWeb.Controllers
                 string result = depotef.AjouterVoiture(voiture, contextEntr);
                 if (result == "SUCCESS")
                 {
+                    if (contextEntr.Succursales.Any(s => s.Code == voiture.SuccursaleId))
+                    {
+                        if (!contextEntr.Voitures.Any(v => v.NoVoiture == voiture.NoVoiture))
+                        {
+                            if (!contextEntr.Voitures.Any(v => v.Model == voiture.Model && v.Groupe != voiture.Groupe))
+                            {
+                                if (contextEntr.Succursales.Any(s => s.Code == voiture.SuccursaleId))
+                                {
+                                    contextEntr.Add(voiture);
+                                    contextEntr.SaveChanges();
+                                }
+                                else
+                                {
+                                    ModelState.AddModelError(nameof(voiture),
+                                        "La succursale n'existe pas.");
+                                    return View(voiture);
+                                }
+                            }
+                            else
+                            {
+                                ModelState.AddModelError(nameof(voiture),
+                                    "Il y a un autre groupe pour le même nom de modèle");
+                                return View(voiture);
+                            }
+                        }
+                        else
+                        {
+                            ModelState.AddModelError(nameof(voiture),
+                                "Le numéro de voiture est déjà utilisé");
+                            return View(voiture);
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(nameof(voiture),
+                            "Le code de succursale est invalide");
+                        return View(voiture);
+                    }
                     return RedirectToAction("Index", "Home");
                 }
                 else

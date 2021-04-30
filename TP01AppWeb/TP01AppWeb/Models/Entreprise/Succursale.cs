@@ -36,7 +36,7 @@ namespace TP01AppWeb.Models.Entreprise
         [Required]
         [Display(Name = "Numéro de téléphone: \r\n Format: 0123456789")]
         [RegularExpression(@"^\d{10}$",
-         ErrorMessage = "Le format du code postal est invalide")]
+         ErrorMessage = "Le format du numéro de téléphone est invalide")]
         public string NoTelephone { get; set; }
         public List<Voiture> Voiture { get; set; }
     }
