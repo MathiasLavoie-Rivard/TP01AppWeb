@@ -7,21 +7,24 @@
 //using Moq;
 //using TP01AppWeb.Models.Users;
 //using TP01AppWeb.Models.Entreprise;
+//using Microsoft.AspNetCore.Identity;
 
 //namespace TP01AppWeb.Controllers.Tests
 //{
 //    public class HomeControllerTests : ReadMe
 //    {
-//        static DepotEF depot = new DepotEF();
-//        HomeController hc = new HomeController(depot);
+//        private readonly UserManager<IdentityUser> userManager = new UserManager<IdentityUser>();
+//        private readonly SignInManager<IdentityUser> signInManager;
+//        IDepot depot;
+//        HomeController hc = new HomeController(depot, userManager, signInManager);
 
 //        [Fact]
 //        public void ConnectSuccessTest()
 //        {
 //            // Arrange
-//            Utilisateur uti = new Utilisateur();
-//            uti.Nom = "AdminI";
-//            uti.Password = "Inimda23";
+//            UserLogin uti = new UserLogin();
+//            uti.Login = "AdminI";
+//            uti.MDP = "Inimda23";
 
 //            //Act
 //            dynamic result = hc.Connect(uti);
@@ -34,9 +37,9 @@
 //        public void ConnectCodeIncorrectTest()
 //        {
 //            // Arrange
-//            Utilisateur uti = new Utilisateur();
-//            uti.Nom = "Mauvais";
-//            uti.Password = "Inimda23";
+//            UserLogin uti = new UserLogin();
+//            uti.Login = "Mauvais";
+//            uti.MDP = "Inimda23";
 
 //            //Act
 //            dynamic result = hc.Connect(uti);
@@ -49,9 +52,9 @@
 //        public void ConnectMdpIncorrectTest()
 //        {
 //            // Arrange
-//            Utilisateur uti = new Utilisateur();
-//            uti.Nom = "AdminI";
-//            uti.Password = "Mauvais";
+//            UserLogin uti = new UserLogin();
+//            uti.Login = "AdminI";
+//            uti.MDP = "Mauvais";
 
 //            //Act
 //            dynamic result = hc.Connect(uti);
@@ -91,17 +94,17 @@
 //        {
 //            // Arrange
 //            Mock<IDepot> mock = new Mock<IDepot>();
-//            Utilisateur user = new Utilisateur();
-//            List<Utilisateur> lstUser = new List<Utilisateur>();
+//            UserCreate user = new UserCreate();
+//            List<UserCreate> lstUser = new List<UserCreate>();
 //            user.Nom = "AdminI";
 //            user.Password = "Inimda23";
-//            user.TypeEmp = Utilisateur.TypeEmployer.Admin;
+//            user.TypeEmp = UserCreate.TypeEmployer.Admin;
 //            mock.Setup(x => x.UtilisateurConn).Returns(user);    // Mock current user
 //            lstUser.Add(user);
 //            mock.Setup(x => x.Utilisateurs).Returns(lstUser);    // Mock list of user
 //            HomeController mockhc = new HomeController(mock.Object);
 
-//            Utilisateur uti = new Utilisateur();
+//            UserCreate uti = new UserCreate();
 //            uti.Nom = "AdminI";
 //            uti.Password = "Inimda23";
 
