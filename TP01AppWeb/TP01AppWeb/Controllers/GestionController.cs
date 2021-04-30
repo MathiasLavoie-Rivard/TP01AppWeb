@@ -19,12 +19,14 @@ namespace TP01AppWeb.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,Gérant")]
         public IActionResult Succursale()
         {
             return View("AjouterSuccursale");
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Gérant")]
         public IActionResult Succursale(Succursale succursale)
         {
             try
