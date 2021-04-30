@@ -73,7 +73,7 @@ namespace TP01AppWeb.Controllers
                         "Mot de passe ou utilisateur invalide");
                     return View();
                 }
-                
+
             }
             return View();
         }
@@ -92,14 +92,15 @@ namespace TP01AppWeb.Controllers
             if (ModelState.IsValid)
             {
                 string result = await depotef.AjouterUtilisateur(p_user, userManager);
-                if (result != "SUCCESS")
+                if (result == "SUCCESS")
                 {
-                    ModelState.AddModelError(nameof(UserCreate.Password), result);
+                    return RedirectToAction("Index", "Home");
                 }
-                return RedirectToAction("Index", "Home");
+                ModelState.AddModelError(nameof(UserCreate.Password), result);
+                return View();
             }
             return View();
-            
+
         }
     }
 }
