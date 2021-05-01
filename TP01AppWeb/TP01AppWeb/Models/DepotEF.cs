@@ -126,7 +126,10 @@ namespace TP01AppWeb.Models
         public string AjouterVoiture(Voiture p_Voiture)
         {
             string result= "";
-            if (contextEntr.Succursales.Any(s => s.Code == p_Voiture.SuccursaleId))
+
+            Succursale succ = contextEntr.Succursales.FirstOrDefault(x => x.Code == p_Voiture.SuccursaleId);
+
+            if (succ != null)
             {
                 if (!contextEntr.Voitures.Any(v => v.NoVoiture == p_Voiture.NoVoiture))
                 {
@@ -134,6 +137,7 @@ namespace TP01AppWeb.Models
                     {
                         try
                         {
+                            p_Voiture.SuccursaleId = succ.Id;
                             contextEntr.Add(p_Voiture);
                             contextEntr.SaveChanges();
                             result = "SUCCESS";
