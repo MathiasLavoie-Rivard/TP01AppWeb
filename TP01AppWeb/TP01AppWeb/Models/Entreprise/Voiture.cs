@@ -34,6 +34,8 @@ namespace TP01AppWeb.Models.Entreprise
         [Display(Name = "Code de succursale:")]
         public int? SuccursaleId { get; set; }
 
+        public List<Location> Locations { get; set; }
+
         public enum Groupes
         {
             Compact,

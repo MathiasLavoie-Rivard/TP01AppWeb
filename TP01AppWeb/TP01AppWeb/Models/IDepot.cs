@@ -10,7 +10,7 @@ namespace TP01AppWeb.Models
 {
     public interface IDepot : ReadMe
     {
-
+        
         public IQueryable<Succursale> Succursales { get; }
         public IQueryable<Voiture> Voitures { get; }
         public IQueryable<IdentityUser> Users { get; }
@@ -19,5 +19,6 @@ namespace TP01AppWeb.Models
         Task DeconnexionAsync();
         string AjouterSuccursale(Succursale p_succursale);
         string AjouterVoiture(Voiture p_Voiture);
+        List<Voiture> ChercherVoitures(RechercheVoiture p_recherche);
     }
 }

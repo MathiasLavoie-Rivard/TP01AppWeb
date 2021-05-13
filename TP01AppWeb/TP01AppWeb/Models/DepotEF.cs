@@ -169,5 +169,10 @@ namespace TP01AppWeb.Models
         {
             await signInManager.SignOutAsync();
         }
+
+        public List<Voiture> ChercherVoitures(RechercheVoiture p_recherche)
+        {
+           return contextEntr.Voitures.Where(x => x.SuccursaleId == p_recherche.SuccursaleId && x.Model == p_recherche.Model).ToList();
+        }
     }
 }

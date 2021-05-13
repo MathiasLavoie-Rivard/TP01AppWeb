@@ -71,5 +71,21 @@ namespace TP01AppWeb.Controllers
             }
             return View(voiture);
         }
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult RechercheLocation()
+        {
+            return View("RechercheLocation");
+        }
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult RechercheLocation(RechercheVoiture p_recherche)
+        {
+            List<Voiture> Voitures = Depot.ChercherVoitures(p_recherche);
+
+            return View("ResultatLocation", Voitures);
+        }
     }
 }

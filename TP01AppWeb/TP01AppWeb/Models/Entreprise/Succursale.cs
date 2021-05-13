@@ -38,6 +38,6 @@ namespace TP01AppWeb.Models.Entreprise
         [RegularExpression(@"^\d{10}$",
          ErrorMessage = "Le format du numéro de téléphone est invalide")]
         public string NoTelephone { get; set; }
-        public List<Voiture> Voiture { get; set; }
+        public List<Voiture> Voitures { get; set; }
     }
 }
