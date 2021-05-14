@@ -18,6 +18,7 @@ namespace TP01AppWeb.Models.Entreprise
         public int? SuccursaleId { get; set; }
         [Display(Name = "Numéro de permis")]
         public string NoPermis { get; set; }
+        public int NoVoiture { get; set; }
         public string Nom { get; set; }
         [Display(Name = "Prénom")]
         public string Prenom { get; set; }

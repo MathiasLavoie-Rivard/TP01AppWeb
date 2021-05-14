@@ -289,7 +289,36 @@ namespace TP01AppWeb.Controllers
         [Authorize(Roles = "Commis")]
         public IActionResult InfosRetour(InfosRetour infos)
         {
-            return View("InfosRetour2", infos);
+            if (ModelState.IsValid)
+                return View("InfosRetour2", infos);
+            else
+                return View("Retourner");
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Commis")]
+        public IActionResult InfosRetour2(InfosRetour infos)
+        {
+            if (ModelState.IsValid)
+            {
+                RetournerLocation retour = new RetournerLocation();
+                retour.NoVoiture = infos.NoVoiture;
+                retour.NoPermisClient = infos.NoPermis;
+                Location location = Depot.RetournerLocation(retour);
+                Voiture voiture = Depot.ChercherVoitureParNo(infos.NoVoiture);
+                voiture.Disponible = true;
+
+
+                if (infos.Accident)
+                {
+
+                    return View("Accident", infos);
+                }
+                else
+                    return RedirectToAction("Index", "Home");
+            }
+            else
+                return View("InfosRetour2", infos);
         }
 
         [HttpGet]
