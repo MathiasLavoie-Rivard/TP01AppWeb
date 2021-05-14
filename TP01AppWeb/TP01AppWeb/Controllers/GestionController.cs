@@ -209,7 +209,7 @@ namespace TP01AppWeb.Controllers
                         DateLocation = DateTime.Today,
                         JourneeLocation = (int)p_Location.JourneeLocation,
                         Client = client,
-                        VoitureId = id,
+                        Voiture = new Voiture { NoVoiture = id},
                         SuccursaleId = (int)p_Location.NoSuccursale
                     };
 
