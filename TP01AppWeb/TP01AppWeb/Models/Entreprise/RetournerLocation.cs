@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TP01AppWeb.Models.Entreprise
 {
-    public class RetournerLocation
+    public class RetournerLocation : ReadMe
     {
         public int NoVoiture { get; set; }
         [Required(ErrorMessage = "Veuillez entrer le nouveau millage")]
