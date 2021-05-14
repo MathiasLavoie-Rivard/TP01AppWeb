@@ -252,7 +252,7 @@ namespace TP01AppWeb.Models
 
         public bool AjouterLocation(Location p_Location)
         {
-            Voiture voiture = contextEntr.Voitures.Where(x => x.NoVoiture == p_Location.VoitureId).FirstOrDefault();
+            Voiture voiture = contextEntr.Voitures.Where(x => x.NoVoiture == p_Location.Voiture.NoVoiture).FirstOrDefault();
             Succursale succursale = contextEntr.Succursales.Where(x => x.Code == p_Location.SuccursaleId).FirstOrDefault();
             Client client = contextEntr.Clients.Where(x => x.NoPermis == p_Location.Client.NoPermis).FirstOrDefault();
 

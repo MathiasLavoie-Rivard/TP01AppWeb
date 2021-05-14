@@ -14,7 +14,6 @@ namespace TP01AppWeb.Models.Entreprise
         [Required]
         public int JoursLocation { get; set; }
         public Client Client { get; set; }
-        public int VoitureId { get; set; }
         public Voiture Voiture { get; set; }
         public int SuccursaleId { get; set; }
         public Succursale SuccursaleRetour { get; set; }
