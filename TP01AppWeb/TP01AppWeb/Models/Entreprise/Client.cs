@@ -9,7 +9,6 @@ namespace TP01AppWeb.Models.Entreprise
     public class Client
     {
         [Key]
-
         public int Id { get; set; }
         [Required]
         public string NoPermis { get; set; }

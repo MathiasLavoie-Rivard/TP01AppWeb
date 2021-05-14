@@ -16,6 +16,7 @@ namespace TP01AppWeb.Models.Entreprise
         public Client Client { get; set; }
         public int VoitureId { get; set; }
         public Voiture Voiture { get; set; }
+        public int SuccursaleId { get; set; }
         public Succursale SuccursaleRetour { get; set; }
     }
 

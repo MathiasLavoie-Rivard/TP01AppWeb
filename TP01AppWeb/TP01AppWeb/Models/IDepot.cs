@@ -22,6 +22,8 @@ namespace TP01AppWeb.Models
         List<Voiture> ChercherVoitures(RechercheVoiture p_recherche);
         Voiture ChercherVoitureParNo(int p_no);
         bool VerifierSuccursale(int p_NoSuccursale);
-        bool VerifierClient(string p_NoPermis); 
+        bool VerifierClient(string p_NoPermis);
+        bool AjouterClient(Client p_client);
+        bool AjouterLocation(Location p_Location);
     }
 }
