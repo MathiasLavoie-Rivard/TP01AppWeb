@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TP01AppWeb.Models.Entreprise
 {
-    public class Location
+    public class Location : ReadMe
     {
         [Key]
         public int Id { get; set; }

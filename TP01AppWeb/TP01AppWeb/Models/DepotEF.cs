@@ -275,5 +275,12 @@ namespace TP01AppWeb.Models
                 return false;
             }
         }
+
+        public Location RetournerLocation(RetournerLocation retour)
+        {
+            Location location = contextEntr.Locations.FirstOrDefault(l => l.Voiture.NoVoiture == retour.NoVoiture && l.Client.NoPermis == retour.NoPermisClient);
+
+            return location;
+        }
     }
 }

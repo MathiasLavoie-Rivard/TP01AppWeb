@@ -26,5 +26,6 @@ namespace TP01AppWeb.Models
         bool VerifierClient(string p_NoPermis);
         bool AjouterClient(Client p_client);
         bool AjouterLocation(Location p_Location);
+        Location RetournerLocation(RetournerLocation retour);
     }
 }
