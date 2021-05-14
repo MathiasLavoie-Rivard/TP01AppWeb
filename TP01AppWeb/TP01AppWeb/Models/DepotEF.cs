@@ -221,17 +221,59 @@ namespace TP01AppWeb.Models
             {
                 return false;
             }
-                return true;
+            return true;
         }
 
-        public bool VerifierClient(string p_NoPermis) {
-            
+        public bool VerifierClient(string p_NoPermis)
+        {
+
             if (contextEntr.Clients.Where(x => x.NoPermis == p_NoPermis).FirstOrDefault() is null)
             {
                 return false;
             }
 
             return true;
+        }
+
+        public bool AjouterClient(Client p_client)
+        {
+            contextEntr.Clients.Add(p_client);
+            try
+            {
+                contextEntr.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+                return false;
+            }
+        }
+
+        public bool AjouterLocation(Location p_Location)
+        {
+            Voiture voiture = contextEntr.Voitures.Where(x => x.NoVoiture == p_Location.VoitureId).FirstOrDefault();
+            Succursale succursale = contextEntr.Succursales.Where(x => x.Code == p_Location.SuccursaleId).FirstOrDefault();
+            Client client = contextEntr.Clients.Where(x => x.NoPermis == p_Location.Client.NoPermis).FirstOrDefault();
+
+            p_Location.Client = client;
+            p_Location.SuccursaleRetour = succursale;
+            p_Location.Voiture = voiture;
+            voiture.Disponible = false;
+
+            contextEntr.Update(voiture);
+            contextEntr.Locations.Add(p_Location);
+
+            try
+            {
+                contextEntr.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+                return false;
+            }
         }
     }
 }

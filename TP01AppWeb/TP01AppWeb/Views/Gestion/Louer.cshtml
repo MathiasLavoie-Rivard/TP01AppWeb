@@ -27,6 +27,24 @@
                     <input asp-for="NoPermisClient" class="form-control" />
                     <span asp-validation-for="NoPermisClient" class="error"></span>
                 </div>
+                @if (Model.RequiresCreation)
+                {
+                    <div class="form-group">
+                        <label asp-for="Prenom"></label>
+                        <input asp-for="Prenom" class="form-control" />
+                        <span asp-validation-for="Prenom" class="error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Nom"></label>
+                        <input asp-for="Nom" class="form-control" />
+                        <span asp-validation-for="Nom" class="error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NoTelephone"></label>
+                        <input asp-for="NoTelephone" class="form-control" />
+                        <span asp-validation-for="NoTelephone" class="error"></span>
+                    </div>
+                }
                 <button type="submit" class="btn btn-primary">Louer</button>
             </form>
         }

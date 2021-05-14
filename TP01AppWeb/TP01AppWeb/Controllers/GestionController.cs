@@ -134,6 +134,46 @@ namespace TP01AppWeb.Controllers
         public IActionResult Louer(AjouterLocation p_Location, int id)
         {
             p_Location.NoVoiture = id;
+            bool ClientExiste = Depot.VerifierClient(p_Location.NoPermisClient);
+            //Vérifier si le client existe dans la base de donnée
+            //Ces vérification ne peuvent pas être faite dans 
+            if (!ClientExiste)
+            {
+
+                p_Location.RequiresCreation = true;
+
+                if (!(p_Location.RequiresCreation &&
+                    p_Location.Nom != null &&
+                    p_Location.Prenom != null &&
+                    p_Location.NoTelephone != null))
+                {
+                    ModelState.AddModelError(nameof(p_Location.NoPermisClient), "Le client n'existe pas dans la base de donnée");
+                    //Vérifier les champs si la 
+                    if (p_Location.Nom is null)
+                    {
+                        ModelState.AddModelError(nameof(p_Location.Nom), "Le nom est mandatoire");
+                    }
+                    if (p_Location.Prenom is null)
+                    {
+                        ModelState.AddModelError(nameof(p_Location.Prenom), "Le prenom est mandatoire");
+                    }
+                    if (p_Location.NoTelephone is null)
+                    {
+                        ModelState.AddModelError(nameof(p_Location.NoTelephone), "Numéro de téléphone est mandatoire");
+                    }
+                }
+            }
+            else
+            {
+                p_Location.RequiresCreation = false;
+            }
+
+
+            //Vérifier si la succursale existe
+
+
+            //TODO VERIFIER SI LE CLIENT A UN ACCIDENT PAS CLOSE DANS SON DOSSIER
+
             if (!ModelState.IsValid)
             {
                 return View(p_Location);
@@ -145,6 +185,38 @@ namespace TP01AppWeb.Controllers
                     ModelState.AddModelError(nameof(p_Location.NoSuccursale), "Le code succursale est inexisant");
                     return View(p_Location);
                 }
+                Client client = new Client
+                {
+                    NoPermis = p_Location.NoPermisClient,
+                    NoTelephone = p_Location.NoTelephone,
+                    Prenom = p_Location.Prenom,
+                    Nom = p_Location.Nom
+                };
+                bool ajouter = true;
+                //Ajouter le client
+                if (p_Location.RequiresCreation)
+                {
+                    if (!Depot.AjouterClient(client))
+                    {
+                        ajouter = false;
+                    }
+                }
+
+                if (ajouter)
+                {
+                    Location location = new Location
+                    {
+                        DateLocation = DateTime.Today,
+                        JourneeLocation = (int)p_Location.JourneeLocation,
+                        Client = client,
+                        VoitureId = id,
+                        SuccursaleId = (int)p_Location.NoSuccursale
+                    };
+
+                    Depot.AjouterLocation(location);
+                }
+
+                //Ajouter la location
 
                 return RedirectToAction("Index", "Home");
             }
@@ -155,52 +227,6 @@ namespace TP01AppWeb.Controllers
         public IActionResult Retourner()
         {
             return View("Retourner");
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "Commis")]
-        public IActionResult Retourner(RetournerLocation retour)
-        {
-            if (ModelState.IsValid)
-            {
-                if (Depot.VerifierSuccursale((int)retour.NoSuccursale))
-                {
-                    Voiture voiture = Depot.ChercherVoitureParNoRetour(retour.NoVoiture);
-
-                    if (voiture != null)
-                    {
-
-                        InfosRetour infoRetour = new InfosRetour
-                        {
-                            NoTelephone = "145021451",
-                            Nom = ,
-                            Prenom = ,
-                            SuccursaleId = voiture.SuccursaleId,
-                            DateLocation = voiture.Locations.FirstOrDefault(l => l.VoitureId == )
-                        };
-                        return View("InfosRetour", voiture);
-                    }
-                    ModelState.AddModelError(nameof(retour.NoVoiture), "Aucune voiture corespondant au modèle n'est en location");
-                    return View("Retourner");
-                }
-                else
-                {
-                    ModelState.AddModelError(nameof(retour.NoSuccursale), "Le code de succursale est inexisant");
-                    return View("Retourner");
-                }
-            }
-            else
-            {
-                return View("Retourner");
-            }
-
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "Commis")]
-        public IActionResult InfosRetour(InfosRetour infos)
-        {
-            return View("InfosRetour2", infos);
         }
     }
 }
