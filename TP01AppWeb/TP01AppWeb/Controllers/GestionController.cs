@@ -207,10 +207,10 @@ namespace TP01AppWeb.Controllers
                     Location location = new Location
                     {
                         DateLocation = DateTime.Today,
-                        JourneeLocation = (int)p_Location.JourneeLocation,
+                        JoursLocation = (int)p_Location.JoursLocation,
                         Client = client,
                         Voiture = new Voiture { NoVoiture = id},
-                        SuccursaleId = (int)p_Location.NoSuccursale
+                        SuccursaleRetourId = (int)p_Location.NoSuccursale
                     };
 
                     Depot.AjouterLocation(location);

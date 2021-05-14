@@ -22,5 +22,14 @@ namespace TP01AppWeb.Models.Entreprise
         [Display(Name = "Code de succursale:")]
         [Range(1, int.MaxValue, ErrorMessage = "Le code doit être un entier positif")]
         public int? NoSuccursale { get; set; }
+
+        [Display(Name = "Numéro de téléphone: \r\n Format: 0123456789")]
+        [RegularExpression(@"^\d{10}$",
+         ErrorMessage = "Le format du numéro de téléphone est invalide")]
+        public string NoTelephone { get; set; }
+        public string Nom { get; set; }
+
+        public string Prenom { get; set; }
+        public bool RequiresCreation { get; set; }
     }
 }
