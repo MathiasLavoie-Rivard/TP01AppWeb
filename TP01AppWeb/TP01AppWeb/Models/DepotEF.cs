@@ -282,5 +282,12 @@ namespace TP01AppWeb.Models
 
             return location;
         }
+
+        public Client RetournerClient(RetournerLocation retour)
+        {
+            Client client = contextEntr.Clients.FirstOrDefault(c => c.NoPermis == retour.NoPermisClient);
+
+            return client;
+        }
     }
 }

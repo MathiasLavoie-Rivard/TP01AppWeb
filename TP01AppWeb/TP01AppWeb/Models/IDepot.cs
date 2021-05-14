@@ -27,5 +27,6 @@ namespace TP01AppWeb.Models
         bool AjouterClient(Client p_client);
         bool AjouterLocation(Location p_Location);
         Location RetournerLocation(RetournerLocation retour);
+        Client RetournerClient(RetournerLocation retour);
     }
 }

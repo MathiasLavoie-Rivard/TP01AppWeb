@@ -238,15 +238,16 @@ namespace TP01AppWeb.Controllers
                 if (Depot.VerifierSuccursale((int)retour.NoSuccursale))
                 {
                     Location location = Depot.RetournerLocation(retour);
+                    Client client = Depot.RetournerClient(retour);
 
                     if (location != null)
                     {
                         InfosRetour infoRetour = new InfosRetour
                         {
-                            NoTelephone = location.Client.NoTelephone,
-                            Nom = location.Client.Nom,
-                            Prenom = location.Client.Prenom,
-                            NoPermis = location.Client.NoPermis,
+                            NoTelephone = client.NoTelephone,
+                            Nom = client.Nom,
+                            Prenom = client.Prenom,
+                            NoPermis = client.NoPermis,
                             SuccursaleId = location.SuccursaleRetourId,
                             DateLocation = location.DateLocation,
                             JoursLocation = location.JoursLocation
