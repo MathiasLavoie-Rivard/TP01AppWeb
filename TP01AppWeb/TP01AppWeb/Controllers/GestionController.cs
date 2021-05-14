@@ -209,7 +209,7 @@ namespace TP01AppWeb.Controllers
                         DateLocation = DateTime.Today,
                         JoursLocation = (int)p_Location.JoursLocation,
                         Client = client,
-                        Voiture = new Voiture { NoVoiture = id},
+                        Voiture = new Voiture { NoVoiture = id },
                         SuccursaleRetourId = (int)p_Location.NoSuccursale
                     };
 
@@ -227,6 +227,53 @@ namespace TP01AppWeb.Controllers
         public IActionResult Retourner()
         {
             return View("Retourner");
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Commis")]
+        public IActionResult Retourner(RetournerLocation retour)
+        {
+            if (ModelState.IsValid)
+            {
+                if (Depot.VerifierSuccursale((int)retour.NoSuccursale))
+                {
+                    Location location = Depot.RetournerLocation(retour);
+                    Client client = Depot.RetournerClient(retour);
+
+                    if (location != null)
+                    {
+                        InfosRetour infoRetour = new InfosRetour
+                        {
+                            NoTelephone = client.NoTelephone,
+                            Nom = client.Nom,
+                            Prenom = client.Prenom,
+                            NoPermis = client.NoPermis,
+                            SuccursaleId = location.SuccursaleRetourId,
+                            DateLocation = location.DateLocation,
+                            JoursLocation = location.JoursLocation
+                        };
+                        return View("InfosRetour", infoRetour);
+                    }
+                    ModelState.AddModelError(nameof(retour.NoVoiture), "Aucune voiture corespondant au modèle n'est en location");
+                    return View("Retourner");
+                }
+                else
+                {
+                    ModelState.AddModelError(nameof(retour.NoSuccursale), "Le code de succursale est inexisant");
+                    return View("Retourner");
+                }
+            }
+            else
+            {
+                return View("Retourner");
+            }
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Commis")]
+        public IActionResult InfosRetour(InfosRetour infos)
+        {
+            return View("InfosRetour2", infos);
         }
     }
 }
