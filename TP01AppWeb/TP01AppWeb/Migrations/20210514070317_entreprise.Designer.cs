@@ -10,7 +10,7 @@ using TP01AppWeb.Models.Entreprise;
 namespace TP01AppWeb.Migrations
 {
     [DbContext(typeof(ContextEntreprise))]
-    [Migration("20210514064219_entreprise")]
+    [Migration("20210514070317_entreprise")]
     partial class entreprise
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -97,10 +97,10 @@ namespace TP01AppWeb.Migrations
                     b.Property<DateTime>("DateLocation")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("JourneeLocation")
+                    b.Property<int>("JoursLocation")
                         .HasColumnType("int");
 
-                    b.Property<int>("SuccursaleId")
+                    b.Property<int>("SuccursaleRetourId")
                         .HasColumnType("int");
 
                     b.Property<int?>("VoitureId")
@@ -110,7 +110,7 @@ namespace TP01AppWeb.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.HasIndex("SuccursaleId");
+                    b.HasIndex("SuccursaleRetourId");
 
                     b.HasIndex("VoitureId");
 
@@ -216,7 +216,7 @@ namespace TP01AppWeb.Migrations
 
                     b.HasOne("TP01AppWeb.Models.Entreprise.Succursale", "SuccursaleRetour")
                         .WithMany()
-                        .HasForeignKey("SuccursaleId")
+                        .HasForeignKey("SuccursaleRetourId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -104,10 +104,10 @@ namespace TP01AppWeb.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DateLocation = table.Column<DateTime>(nullable: false),
-                    JourneeLocation = table.Column<int>(nullable: false),
+                    JoursLocation = table.Column<int>(nullable: false),
                     ClientId = table.Column<int>(nullable: true),
                     VoitureId = table.Column<int>(nullable: true),
-                    SuccursaleId = table.Column<int>(nullable: false)
+                    SuccursaleRetourId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -119,8 +119,8 @@ namespace TP01AppWeb.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Locations_Succursales_SuccursaleId",
-                        column: x => x.SuccursaleId,
+                        name: "FK_Locations_Succursales_SuccursaleRetourId",
+                        column: x => x.SuccursaleRetourId,
                         principalTable: "Succursales",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -148,9 +148,9 @@ namespace TP01AppWeb.Migrations
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Locations_SuccursaleId",
+                name: "IX_Locations_SuccursaleRetourId",
                 table: "Locations",
-                column: "SuccursaleId");
+                column: "SuccursaleRetourId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Locations_VoitureId",
