@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TP01AppWeb.Models.Entreprise
 {
-    public class AjouterLocation
+    public class AjouterLocation : ReadMe
     {
         public int NoVoiture { get; set; }
         [Required(ErrorMessage = "Veuillez entrer un nombre de jours pour la location")]

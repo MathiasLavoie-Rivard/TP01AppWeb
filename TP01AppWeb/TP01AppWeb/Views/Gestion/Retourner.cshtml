@@ -1,0 +1,32 @@
+﻿@model RetournerLocation
+@{
+    Layout = "_Layout";
+}
+<main role="main" class="pb-3 logoimage">
+    @{
+        <h4>Retour de voiture</h4>
+        <form asp-action="Retourner" method="post">
+            <div class="form-group">
+                <label asp-for="NoVoiture"></label>
+                <input asp-for="NoVoiture" class="form-control" />
+                <span asp-validation-for="NoVoiture" class="error"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Millage"></label>
+                <input asp-for="Millage" class="form-control" />
+                <span asp-validation-for="Millage" class="error"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NoPermisClient"></label>
+                <input asp-for="NoPermisClient" class="form-control" />
+                <span asp-validation-for="NoPermisClient" class="error"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NoSuccursale"></label>
+                <input asp-for="NoSuccursale" class="form-control" />
+                <span asp-validation-for="NoSuccursale" class="error"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Louer</button>
+        </form>
+    }
+</main>

@@ -129,8 +129,6 @@ namespace TP01AppWeb.Controllers
             return View("Louer", location);
         }
 
-
-
         [HttpPost]
         [Authorize(Roles = "Commis")]
         public IActionResult Louer(AjouterLocation p_Location, int id)
@@ -222,6 +220,13 @@ namespace TP01AppWeb.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Commis")]
+        public IActionResult Retourner()
+        {
+            return View("Retourner");
         }
     }
 }
