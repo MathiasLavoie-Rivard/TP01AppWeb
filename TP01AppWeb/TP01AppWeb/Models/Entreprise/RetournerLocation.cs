@@ -8,6 +8,7 @@ namespace TP01AppWeb.Models.Entreprise
 {
     public class RetournerLocation : ReadMe
     {
+        [Display(Name = "Numéro de voiture: ")]
         public int NoVoiture { get; set; }
         [Required(ErrorMessage = "Veuillez entrer le nouveau millage")]
         [Range(1, int.MaxValue)]
