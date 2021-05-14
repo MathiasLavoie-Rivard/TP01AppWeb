@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace TP01AppWeb.Models.Entreprise
 {
-    public class DossierAccident
+    public class FermerDossier
     {
-        [Key]
-        public int Id { get; set; }
+        [Required]
+        public int NoDossier {get;set;}
         [Required]
         public string NoPermis { get; set; }
-        public int LocationId { get; set; }
-        public Location Location { get; set; }
-        public bool Actif { get; set; }
-        public string Description { get; set; }
+        [Required]
+        public int NoVoiture { get; set; }
     }
 }
