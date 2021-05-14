@@ -5,6 +5,11 @@
 <main role="main" class="pb-3 logoimage">
     <form asp-action="InfosRetour" method="post">
         <div class="form-group">
+            <label asp-for="SuccursaleId"></label>
+            <input readonly asp-for="SuccursaleId" class="form-control" />
+            <span asp-validation-for="SuccursaleId" class="error"></span>
+        </div>
+        <div class="form-group">
             <label asp-for="DateLocation"></label>
             <input readonly asp-for="DateLocation" class="form-control" />
             <span asp-validation-for="DateLocation" class="error"></span>
@@ -13,11 +18,6 @@
             <label asp-for="JoursLocation"></label>
             <input readonly asp-for="JoursLocation" class="form-control" />
             <span asp-validation-for="JoursLocation" class="error"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="SuccursaleId"></label>
-            <input readonly asp-for="SuccursaleId" class="form-control" />
-            <span asp-validation-for="SuccursaleId" class="error"></span>
         </div>
         <div hidden class="form-group">
             <label asp-for="NoPermis"></label>
