@@ -245,7 +245,6 @@ namespace TP01AppWeb.Models
             }
             catch (Exception)
             {
-                throw;
                 return false;
             }
         }
@@ -255,7 +254,10 @@ namespace TP01AppWeb.Models
             Voiture voiture = contextEntr.Voitures.Where(x => x.NoVoiture == p_Location.Voiture.NoVoiture).FirstOrDefault();
             Succursale succursale = contextEntr.Succursales.Where(x => x.Code == p_Location.SuccursaleRetourId).FirstOrDefault();
             Client client = contextEntr.Clients.Where(x => x.NoPermis == p_Location.Client.NoPermis).FirstOrDefault();
-
+            if (voiture.Disponible == false)
+            {
+                return false;
+            }
             p_Location.Client = client;
             p_Location.SuccursaleRetour = succursale;
             p_Location.Voiture = voiture;
@@ -271,7 +273,6 @@ namespace TP01AppWeb.Models
             }
             catch (Exception)
             {
-                throw;
                 return false;
             }
         }
@@ -288,6 +289,44 @@ namespace TP01AppWeb.Models
             Client client = contextEntr.Clients.FirstOrDefault(c => c.NoPermis == retour.NoPermisClient);
 
             return client;
+        }
+
+        public bool VerifierLocations(string NoPermis)
+        {
+            List <Location> Locations = contextEntr.Locations.Where(x => x.Client.NoPermis == NoPermis && x.Voiture.Disponible == false).ToList();
+            if (Locations.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        public bool VerifierAccident(string NoPermis)
+        {
+            List<DossierAccident> Dossiers = contextEntr.DossierAccidents.Where(x => x.Location.Client.NoPermis == NoPermis && x.Actif == true).ToList();
+            if (Dossiers.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public string VerifierDossierClient(FermerDossier dossier)
+        {
+            string error = "";
+            DossierAccident Dossier = contextEntr.DossierAccidents.Where(x => x.Id == dossier.NoDossier).FirstOrDefault();
+            if (Dossier is null)
+            {
+                return "Le dossier d'accident n'existe pas";
+            }
+            return "blabla";
         }
     }
 }

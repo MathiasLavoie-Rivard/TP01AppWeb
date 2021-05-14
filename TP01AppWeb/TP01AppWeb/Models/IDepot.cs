@@ -10,7 +10,6 @@ namespace TP01AppWeb.Models
 {
     public interface IDepot : ReadMe
     {
-        
         IQueryable<Succursale> Succursales { get; }
         IQueryable<Voiture> Voitures { get; }
         IQueryable<IdentityUser> Users { get; }
@@ -28,5 +27,9 @@ namespace TP01AppWeb.Models
         bool AjouterLocation(Location p_Location);
         Location RetournerLocation(RetournerLocation retour);
         Client RetournerClient(RetournerLocation retour);
+        bool VerifierLocations(string NoPermis);
+        bool VerifierAccident(string NoPermis);
+        string VerifierDossierClient(FermerDossier dossier);
+
     }
 }

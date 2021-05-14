@@ -155,7 +155,7 @@ namespace TP01AppWeb.Controllers
                     }
                     if (p_Location.Prenom is null)
                     {
-                        ModelState.AddModelError(nameof(p_Location.Prenom), "Le prenom est mandatoire");
+                        ModelState.AddModelError(nameof(p_Location.Prenom), "Le prénom est mandatoire");
                     }
                     if (p_Location.NoTelephone is null)
                     {
@@ -166,13 +166,20 @@ namespace TP01AppWeb.Controllers
             else
             {
                 p_Location.RequiresCreation = false;
+
+                if (!Depot.VerifierLocations(p_Location.NoPermisClient))
+                {
+                    ModelState.AddModelError(nameof(p_Location.NoPermisClient), "Le client à déja une location à son nom");
+                }
+
+                if (!Depot.VerifierAccident(p_Location.NoPermisClient))
+                {
+                    ModelState.AddModelError(nameof(p_Location.NoPermisClient), "Le client à un dossier d'accident encore actif");
+                }
+
             }
 
-
-            //Vérifier si la succursale existe
-
-
-            //TODO VERIFIER SI LE CLIENT A UN ACCIDENT PAS CLOSE DANS SON DOSSIER
+            
 
             if (!ModelState.IsValid)
             {
@@ -202,6 +209,8 @@ namespace TP01AppWeb.Controllers
                     }
                 }
 
+
+
                 if (ajouter)
                 {
                     Location location = new Location
@@ -215,6 +224,13 @@ namespace TP01AppWeb.Controllers
 
                     Depot.AjouterLocation(location);
                 }
+                else
+                {
+                    ModelState.AddModelError(nameof(p_Location), "La voiture n'est pas disponnible");
+                    return View(p_Location);
+                }
+
+
 
                 //Ajouter la location
 
@@ -274,6 +290,20 @@ namespace TP01AppWeb.Controllers
         public IActionResult InfosRetour(InfosRetour infos)
         {
             return View("InfosRetour2", infos);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Commis")]
+        public IActionResult FermerDossier()
+        {
+
+            return View("FermerDossier");
+        }
+        [HttpPost]
+        [Authorize(Roles = "Commis")]
+        public IActionResult FermerDossier(FermerDossier p_Dossier)
+        {
+            return View("FermerDossier",p_Dossier);
         }
     }
 }

@@ -1,0 +1,25 @@
+﻿@model FermerDossier
+@{
+    Layout = "_Layout";
+}
+<main role="main" class="pb-3 logoimage">
+    <form asp-action="FermerDossier" method="post">
+        <div class="form-group">
+            <label asp-for="NoDossier"></label>
+            <input readonly asp-for="NoDossier" class="form-control" />
+            <span asp-validation-for="NoDossier" class="error"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="NoPermis"></label>
+            <input readonly asp-for="NoPermis" class="form-control" />
+            <span asp-validation-for="NoPermis" class="error"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="NoVoiture"></label>
+            <input readonly asp-for="NoVoiture" class="form-control" />
+            <span asp-validation-for="NoVoiture" class="error"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Fermer le dossier</button>
+    </form>
+
+</main>
