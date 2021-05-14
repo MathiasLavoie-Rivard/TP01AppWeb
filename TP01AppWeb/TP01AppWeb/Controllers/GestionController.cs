@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TP01AppWeb.Models.Entreprise;
 using TP01AppWeb.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace TP01AppWeb.Controllers
 {
@@ -179,7 +180,7 @@ namespace TP01AppWeb.Controllers
 
             }
 
-            
+
 
             if (!ModelState.IsValid)
             {
@@ -332,7 +333,21 @@ namespace TP01AppWeb.Controllers
         [Authorize(Roles = "Commis")]
         public IActionResult FermerDossier(FermerDossier p_Dossier)
         {
-            return View("FermerDossier",p_Dossier);
+            if (ModelState.IsValid)
+            {
+                string error = Depot.VerifierDossierClient(p_Dossier);
+                if (error == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError(nameof(p_Dossier), "Le code de succursale est inexistant");
+                    return View(p_Dossier);
+                }
+            }
+            return View(p_Dossier);
+            
         }
     }
 }
