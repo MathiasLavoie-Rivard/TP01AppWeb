@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TP01AppWeb.Models.Entreprise
 {
-    public sealed class Voiture : ReadMe
+    public class Voiture : ReadMe
     {
         [Key]
         public int Id { get; set; }
