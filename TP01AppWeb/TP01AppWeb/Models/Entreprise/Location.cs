@@ -12,7 +12,7 @@ namespace TP01AppWeb.Models.Entreprise
         public int Id { get; set; }
         public DateTime DateLocation { get; set; }
         [Required]
-        public int JourneeLocation { get; set; }
+        public int JoursLocation { get; set; }
         public Client Client { get; set; }
         public int VoitureId { get; set; }
         public Voiture Voiture { get; set; }

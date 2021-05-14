@@ -119,7 +119,7 @@ namespace TP01AppWeb.Controllers
             Voiture voiture = Depot.ChercherVoitureParNo(id);
             if (voiture is null)
             {
-                return View("Louer",null);
+                return View("Louer", null);
             }
             AjouterLocation location = new AjouterLocation
             {
@@ -131,7 +131,7 @@ namespace TP01AppWeb.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Commis")]
-        public IActionResult Louer(AjouterLocation p_Location,int id)
+        public IActionResult Louer(AjouterLocation p_Location, int id)
         {
             p_Location.NoVoiture = id;
             if (!ModelState.IsValid)
@@ -146,7 +146,7 @@ namespace TP01AppWeb.Controllers
                     return View(p_Location);
                 }
 
-                    return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -155,6 +155,52 @@ namespace TP01AppWeb.Controllers
         public IActionResult Retourner()
         {
             return View("Retourner");
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Commis")]
+        public IActionResult Retourner(RetournerLocation retour)
+        {
+            if (ModelState.IsValid)
+            {
+                if (Depot.VerifierSuccursale((int)retour.NoSuccursale))
+                {
+                    Voiture voiture = Depot.ChercherVoitureParNoRetour(retour.NoVoiture);
+
+                    if (voiture != null)
+                    {
+
+                        InfosRetour infoRetour = new InfosRetour
+                        {
+                            NoTelephone = "145021451",
+                            Nom = ,
+                            Prenom = ,
+                            SuccursaleId = voiture.SuccursaleId,
+                            DateLocation = voiture.Locations.FirstOrDefault(l => l.VoitureId == )
+                        };
+                        return View("InfosRetour", voiture);
+                    }
+                    ModelState.AddModelError(nameof(retour.NoVoiture), "Aucune voiture corespondant au modèle n'est en location");
+                    return View("Retourner");
+                }
+                else
+                {
+                    ModelState.AddModelError(nameof(retour.NoSuccursale), "Le code de succursale est inexisant");
+                    return View("Retourner");
+                }
+            }
+            else
+            {
+                return View("Retourner");
+            }
+
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Commis")]
+        public IActionResult InfosRetour(InfosRetour infos)
+        {
+            return View("InfosRetour2", infos);
         }
     }
 }

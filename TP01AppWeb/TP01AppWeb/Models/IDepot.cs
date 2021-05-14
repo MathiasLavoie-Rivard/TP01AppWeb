@@ -11,9 +11,9 @@ namespace TP01AppWeb.Models
     public interface IDepot : ReadMe
     {
         
-        public IQueryable<Succursale> Succursales { get; }
-        public IQueryable<Voiture> Voitures { get; }
-        public IQueryable<IdentityUser> Users { get; }
+        IQueryable<Succursale> Succursales { get; }
+        IQueryable<Voiture> Voitures { get; }
+        IQueryable<IdentityUser> Users { get; }
         Task<string> AjouterUtilisateur(UserCreate p_user);
         Task<bool> Connexion(UserLogin p_user);
         Task DeconnexionAsync();
@@ -21,6 +21,7 @@ namespace TP01AppWeb.Models
         string AjouterVoiture(Voiture p_Voiture);
         List<Voiture> ChercherVoitures(RechercheVoiture p_recherche);
         Voiture ChercherVoitureParNo(int p_no);
+        Voiture ChercherVoitureParNoRetour(int p_no);
         bool VerifierSuccursale(int p_NoSuccursale);
         bool VerifierClient(string p_NoPermis); 
     }

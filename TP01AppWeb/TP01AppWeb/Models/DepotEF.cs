@@ -201,6 +201,19 @@ namespace TP01AppWeb.Models
             }
             return voiture;
         }
+        public Voiture ChercherVoitureParNoRetour(int p_no)
+        {
+            Voiture voiture = contextEntr.Voitures.Where(x => x.NoVoiture == p_no).FirstOrDefault();
+            if (voiture is null)
+            {
+                return null;
+            }
+            else if (voiture.Disponible == true)
+            {
+                return null;
+            }
+            return voiture;
+        }
 
         public bool VerifierSuccursale(int p_CodeSuccursale)
         {

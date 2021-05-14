@@ -12,7 +12,7 @@ namespace TP01AppWeb.Models.Entreprise
         [Required(ErrorMessage = "Veuillez entrer un nombre de jours pour la location")]
         [Display(Name = "Nombre de journée de location:")]
         [Range(1, int.MaxValue, ErrorMessage = "Le code doit être un entier positif")]
-        public int? JourneeLocation { get; set; }
+        public int? JoursLocation { get; set; }
 
         [Required(ErrorMessage = "Veuillez entrer un numéro de permis")]
         [Display(Name = "Numéro de permis du client:")]
