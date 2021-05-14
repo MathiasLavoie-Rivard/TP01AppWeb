@@ -15,6 +15,6 @@ namespace TP01AppWeb.Models.Entreprise
         [Required]
         [Range(1, int.MaxValue)]
         [Display(Name = "Code de succursale:")]
-        public int? SuccursaleId { get; set; }
+        public int? CodeSuccursale { get; set; }
     }
 }

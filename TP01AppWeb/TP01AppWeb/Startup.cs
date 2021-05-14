@@ -99,7 +99,7 @@ namespace TP01AppWeb
             {
                 endpoints.MapControllerRoute(
                     name: "Gestion",
-                    pattern: "{controller=Gestion}/{action?}");
+                    pattern: "{controller=Gestion}/{action?}/{id?}");
             });
 
             PeuplerUtilisateurs.CréerCompteAdmin(app.ApplicationServices, Configuration);

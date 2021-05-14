@@ -21,14 +21,14 @@ namespace TP01AppWeb.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin,Gérant")]
+        [Authorize(Roles = "Gérant")]
         public IActionResult Succursale()
         {
             return View("Succursale");
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin,Gérant")]
+        [Authorize(Roles = "Gérant")]
         public IActionResult Succursale(Succursale succursale)
         {
             if (ModelState.IsValid)
@@ -48,12 +48,14 @@ namespace TP01AppWeb.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Commis")]
         public IActionResult Voiture()
         {
             return View("Voiture");
         }
 
         [HttpPost]
+        [Authorize(Roles = "Commis")]
         public IActionResult Voiture(Voiture voiture)
         {
             if (ModelState.IsValid)
@@ -72,7 +74,7 @@ namespace TP01AppWeb.Controllers
             return View(voiture);
         }
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Roles = "Commis")]
         public IActionResult RechercheLocation()
         {
             return View("RechercheLocation");
@@ -80,12 +82,74 @@ namespace TP01AppWeb.Controllers
 
 
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles = "Commis")]
         public IActionResult RechercheLocation(RechercheVoiture p_recherche)
         {
-            List<Voiture> Voitures = Depot.ChercherVoitures(p_recherche);
+            if (ModelState.IsValid)
+            {
+                if (Depot.VerifierSuccursale((int)p_recherche.CodeSuccursale))
+                {
+                    List<Voiture> Voitures = Depot.ChercherVoitures(p_recherche);
 
-            return View("ResultatLocation", Voitures);
+                    if (Voitures.Count != 0)
+                    {
+                        return View("ResultatLocation", Voitures);
+                    }
+                    ModelState.AddModelError(nameof(p_recherche.Model), "Aucune voiture corespondant au modèle n'est disponible");
+                    return View("RechercheLocation");
+                }
+                else
+                {
+                    ModelState.AddModelError(nameof(p_recherche.CodeSuccursale), "Le code succursale est inexisant");
+                    return View("RechercheLocation");
+                }
+            }
+            else
+            {
+                return View("RechercheLocation");
+            }
+
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Commis")]
+        public IActionResult Louer(int id)
+        {
+
+            Voiture voiture = Depot.ChercherVoitureParNo(id);
+            if (voiture is null)
+            {
+                return View("Louer",null);
+            }
+            AjouterLocation location = new AjouterLocation
+            {
+
+                NoVoiture = id
+            };
+            return View("Louer", location);
+        }
+
+
+
+        [HttpPost]
+        [Authorize(Roles = "Commis")]
+        public IActionResult Louer(AjouterLocation p_Location,int id)
+        {
+            p_Location.NoVoiture = id;
+            if (!ModelState.IsValid)
+            {
+                return View(p_Location);
+            }
+            else
+            {
+                if (!Depot.VerifierSuccursale((int)p_Location.NoSuccursale))
+                {
+                    ModelState.AddModelError(nameof(p_Location.NoSuccursale), "Le code succursale est inexisant");
+                    return View(p_Location);
+                }
+
+                    return RedirectToAction("Index", "Home");
+            }
         }
     }
 }

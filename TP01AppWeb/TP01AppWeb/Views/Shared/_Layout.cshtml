@@ -6,26 +6,33 @@
 <body>
     <header class="navbar navbar-expand-xl navbar-light border-bottom headerstyle">
         <ul class="mr-auto ml-auto">
-                <li>
-                    <a href="@Url.Action("Index","Home")">ACCUEIL</a>
-                </li>
+            <li>
+                <a href="@Url.Action("Index","Home")">ACCUEIL</a>
+            </li>
             @if (User.IsInRole("Admin"))
             {
                 <li>
                     <a href="@Url.Action("AjouterUtilisateur", "Home")">AJOUTER UN UTILISATEUR</a>
                 </li>
             }
-            @if (User.IsInRole("Gérant") | User.IsInRole("Admin"))
+            @if (User.IsInRole("Gérant"))
             {
                 <li>
                     <a href="@Url.Action("Succursale","Gestion")">AJOUTER UNE SUCCURSALE</a>
                 </li>
             }
-            @if (User.Identity.IsAuthenticated)
+            @if (User.IsInRole("Commis"))
             {
                 <li>
                     <a href="@Url.Action("Voiture", "Gestion")">AJOUTER UNE VOITURE</a>
                 </li>
+                <li>
+                    <a href="@Url.Action("RechercheLocation", "Gestion")">LOCATION DE VOITURE</a>
+                </li>
+            }
+            @if (User.Identity.IsAuthenticated)
+            {
+
                 <li>
                     <a href="@Url.Action("Disconnect", "Home")">DÉCONNEXION</a>
                 </li>

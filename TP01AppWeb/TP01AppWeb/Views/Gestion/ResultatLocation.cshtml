@@ -1,1 +1,31 @@
 ﻿@model List<Voiture>
+@{
+    Layout = "_Layout";
+}
+
+<main role="main" class="pb-3 logoimage">
+    <table class="table table-bordered">
+
+        <thead>
+            <tr>
+                <th>NoVoiture</th>
+                <th>Model</th>
+                <th>Groupe</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.NoVoiture</td>
+                        <td>@item.Model</td>
+                        <td>@item.Groupe.ToString()</td>
+                        <td><a asp-action="Louer" asp-route-id="@item.NoVoiture">Louer</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</main>

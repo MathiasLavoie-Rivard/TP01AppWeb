@@ -155,6 +155,9 @@ namespace TP01AppWeb.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
+                    b.Property<bool>("Disponible")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Groupe")
                         .HasColumnType("int");
 
@@ -205,7 +208,7 @@ namespace TP01AppWeb.Migrations
 
             modelBuilder.Entity("TP01AppWeb.Models.Entreprise.Voiture", b =>
                 {
-                    b.HasOne("TP01AppWeb.Models.Entreprise.Succursale", null)
+                    b.HasOne("TP01AppWeb.Models.Entreprise.Succursale", "Succursale")
                         .WithMany("Voitures")
                         .HasForeignKey("SuccursaleId")
                         .OnDelete(DeleteBehavior.Cascade)

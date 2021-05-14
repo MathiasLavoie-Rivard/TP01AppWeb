@@ -11,9 +11,12 @@ namespace TP01AppWeb.Models.Entreprise
         [Key]
         public int Id { get; set; }
         public DateTime DateLocation { get; set; }
+        [Required]
         public int JourneeLocation { get; set; }
         public Client Client { get; set; }
+        public int VoitureId { get; set; }
         public Voiture Voiture { get; set; }
+        public Succursale SuccursaleRetour { get; set; }
     }
 
 }

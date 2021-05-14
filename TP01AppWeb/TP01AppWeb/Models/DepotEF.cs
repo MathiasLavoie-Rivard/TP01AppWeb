@@ -125,7 +125,7 @@ namespace TP01AppWeb.Models
 
         public string AjouterVoiture(Voiture p_Voiture)
         {
-            string result= "";
+            string result = "";
 
             Succursale succ = contextEntr.Succursales.FirstOrDefault(x => x.Code == p_Voiture.SuccursaleId);
 
@@ -138,6 +138,8 @@ namespace TP01AppWeb.Models
                         try
                         {
                             p_Voiture.SuccursaleId = succ.Id;
+                            p_Voiture.Succursale = succ;
+                            p_Voiture.Disponible = true;
                             contextEntr.Add(p_Voiture);
                             contextEntr.SaveChanges();
                             result = "SUCCESS";
@@ -155,7 +157,7 @@ namespace TP01AppWeb.Models
                 }
                 else
                 {
-                        result += "Le numéro de voiture est déjà utilisé";
+                    result += "Le numéro de voiture est déjà utilisé";
                 }
             }
             else
@@ -172,7 +174,44 @@ namespace TP01AppWeb.Models
 
         public List<Voiture> ChercherVoitures(RechercheVoiture p_recherche)
         {
-           return contextEntr.Voitures.Where(x => x.SuccursaleId == p_recherche.SuccursaleId && x.Model == p_recherche.Model).ToList();
+            //Aller chercher la liste des voitures
+            List<Voiture> Voitures = contextEntr.Voitures.Where(x => x.Succursale.Code == p_recherche.CodeSuccursale && x.Model == p_recherche.Model && x.Disponible == true).ToList();
+            //Si aucunes voitures ne sont disponible aller chercher les autres voitures du meme groupe et de meme succursale.
+            if (Voitures.Count == 0)
+            {
+                Voiture voiture = contextEntr.Voitures.Where(x => x.Model.ToLower() == p_recherche.Model.ToLower()).FirstOrDefault();
+                if (voiture != null)
+                {
+                    Voiture.Groupes GroupeVoiture = voiture.Groupe;
+                    Voitures = contextEntr.Voitures.Where(x => x.Succursale.Code == p_recherche.CodeSuccursale && x.Groupe == GroupeVoiture && x.Disponible == true).ToList();
+                }
+            }
+            return Voitures;
+        }
+        public Voiture ChercherVoitureParNo(int p_no)
+        {
+            Voiture voiture = contextEntr.Voitures.Where(x => x.NoVoiture == p_no).FirstOrDefault();
+            if (voiture is null)
+            {
+                return null;
+            }
+            else if (voiture.Disponible == false)
+            {
+                return null;
+            }
+            return voiture;
+        }
+
+        public bool VerifierSuccursale(int p_CodeSuccursale)
+        {
+            if (contextEntr.Succursales.Where(x => x.Code == p_CodeSuccursale).FirstOrDefault() is null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }

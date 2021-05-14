@@ -10,7 +10,7 @@ using TP01AppWeb.Models.Entreprise;
 namespace TP01AppWeb.Migrations
 {
     [DbContext(typeof(ContextEntreprise))]
-    [Migration("20210513234411_entreprise")]
+    [Migration("20210514002517_entreprise")]
     partial class entreprise
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -157,6 +157,9 @@ namespace TP01AppWeb.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
+                    b.Property<bool>("Disponible")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Groupe")
                         .HasColumnType("int");
 
@@ -207,7 +210,7 @@ namespace TP01AppWeb.Migrations
 
             modelBuilder.Entity("TP01AppWeb.Models.Entreprise.Voiture", b =>
                 {
-                    b.HasOne("TP01AppWeb.Models.Entreprise.Succursale", null)
+                    b.HasOne("TP01AppWeb.Models.Entreprise.Succursale", "Succursale")
                         .WithMany("Voitures")
                         .HasForeignKey("SuccursaleId")
                         .OnDelete(DeleteBehavior.Cascade)

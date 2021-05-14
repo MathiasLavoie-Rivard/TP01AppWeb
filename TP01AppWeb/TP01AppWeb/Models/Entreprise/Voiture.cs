@@ -10,7 +10,6 @@ namespace TP01AppWeb.Models.Entreprise
     {
         [Key]
         public int Id { get; set; }
-        
         [Required]
         [Range(1, int.MaxValue)]
         [Display(Name = "Numéro de la voiture:")]
@@ -33,7 +32,8 @@ namespace TP01AppWeb.Models.Entreprise
         [Range(1, int.MaxValue)]
         [Display(Name = "Code de succursale:")]
         public int? SuccursaleId { get; set; }
-
+        public Succursale Succursale { get; set; }
+        public bool Disponible { get; set; }
         public List<Location> Locations { get; set; }
 
         public enum Groupes

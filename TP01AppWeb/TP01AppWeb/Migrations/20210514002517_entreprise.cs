@@ -53,7 +53,8 @@ namespace TP01AppWeb.Migrations
                     Annee = table.Column<int>(nullable: false),
                     Groupe = table.Column<int>(nullable: false),
                     Millage = table.Column<int>(nullable: false),
-                    SuccursaleId = table.Column<int>(nullable: false)
+                    SuccursaleId = table.Column<int>(nullable: false),
+                    Disponible = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

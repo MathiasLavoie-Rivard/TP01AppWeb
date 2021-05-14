@@ -3,20 +3,15 @@
     Layout = "_Layout";
 }
 <main role="main" class="pb-3 logoimage">
-    <form asp-action="RecherLocation" method="post">
+    <form asp-action="RechercheLocation" method="post">
         <div class="form-group">
-            <label asp-for="SuccursaleId"></label>
-            <input asp-for="SuccursaleId" class="form-control" />
-            <span asp-validation-for="SuccursaleId" class="error"></span>
+            <label asp-for="CodeSuccursale"></label>
+            <input asp-for="CodeSuccursale" class="form-control" />
+            <span asp-validation-for="CodeSuccursale" class="error"></span>
         </div>
         <div class="form-group">
             <label asp-for="Model"></label>
-            <select asp-for="Model" class="form-control">
-                @foreach (var g in Enum.GetValues(typeof(Voiture.Groupes)))
-                {
-                    <option value="@g">@g.ToString()</option>
-                }
-            </select>
+            <input asp-for="Model" class="form-control" />
             <span asp-validation-for="Model" class="error"></span>
         </div>
         <button type="submit" class="btn btn-primary">Chercher Voitures</button>

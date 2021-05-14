@@ -20,5 +20,7 @@ namespace TP01AppWeb.Models
         string AjouterSuccursale(Succursale p_succursale);
         string AjouterVoiture(Voiture p_Voiture);
         List<Voiture> ChercherVoitures(RechercheVoiture p_recherche);
+        Voiture ChercherVoitureParNo(int p_no);
+        bool VerifierSuccursale(int p_NoSuccursale);
     }
 }
