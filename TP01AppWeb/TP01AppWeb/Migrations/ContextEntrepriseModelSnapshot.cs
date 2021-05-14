@@ -54,8 +54,14 @@ namespace TP01AppWeb.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("Actif")
+                        .HasColumnType("bit");
+
                     b.Property<int?>("ClientId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NoPermis")
                         .IsRequired()
@@ -92,12 +98,17 @@ namespace TP01AppWeb.Migrations
                     b.Property<int>("JourneeLocation")
                         .HasColumnType("int");
 
-                    b.Property<int?>("VoitureId")
+                    b.Property<int?>("SuccursaleRetourId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VoitureId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
+
+                    b.HasIndex("SuccursaleRetourId");
 
                     b.HasIndex("VoitureId");
 
@@ -201,9 +212,15 @@ namespace TP01AppWeb.Migrations
                         .WithMany()
                         .HasForeignKey("ClientId");
 
+                    b.HasOne("TP01AppWeb.Models.Entreprise.Succursale", "SuccursaleRetour")
+                        .WithMany()
+                        .HasForeignKey("SuccursaleRetourId");
+
                     b.HasOne("TP01AppWeb.Models.Entreprise.Voiture", "Voiture")
                         .WithMany("Locations")
-                        .HasForeignKey("VoitureId");
+                        .HasForeignKey("VoitureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TP01AppWeb.Models.Entreprise.Voiture", b =>

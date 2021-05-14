@@ -208,10 +208,17 @@ namespace TP01AppWeb.Models
             {
                 return false;
             }
-            else
-            {
                 return true;
+        }
+
+        public bool VerifierClient(string p_NoPermis) {
+            
+            if (contextEntr.Clients.Where(x => x.NoPermis == p_NoPermis).FirstOrDefault() is null)
+            {
+                return false;
             }
+
+            return true;
         }
     }
 }

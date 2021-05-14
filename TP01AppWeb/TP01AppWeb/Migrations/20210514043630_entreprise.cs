@@ -76,7 +76,9 @@ namespace TP01AppWeb.Migrations
                     NoPermis = table.Column<string>(nullable: false),
                     ClientId = table.Column<int>(nullable: true),
                     NoVoiture = table.Column<string>(nullable: true),
-                    VoitureId = table.Column<int>(nullable: true)
+                    VoitureId = table.Column<int>(nullable: true),
+                    Actif = table.Column<bool>(nullable: false),
+                    Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -104,7 +106,8 @@ namespace TP01AppWeb.Migrations
                     DateLocation = table.Column<DateTime>(nullable: false),
                     JourneeLocation = table.Column<int>(nullable: false),
                     ClientId = table.Column<int>(nullable: true),
-                    VoitureId = table.Column<int>(nullable: true)
+                    VoitureId = table.Column<int>(nullable: false),
+                    SuccursaleRetourId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -116,11 +119,17 @@ namespace TP01AppWeb.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_Locations_Succursales_SuccursaleRetourId",
+                        column: x => x.SuccursaleRetourId,
+                        principalTable: "Succursales",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Locations_Voitures_VoitureId",
                         column: x => x.VoitureId,
                         principalTable: "Voitures",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -137,6 +146,11 @@ namespace TP01AppWeb.Migrations
                 name: "IX_Locations_ClientId",
                 table: "Locations",
                 column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Locations_SuccursaleRetourId",
+                table: "Locations",
+                column: "SuccursaleRetourId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Locations_VoitureId",

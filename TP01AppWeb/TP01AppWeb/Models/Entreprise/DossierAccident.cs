@@ -15,6 +15,7 @@ namespace TP01AppWeb.Models.Entreprise
         public Client Client { get; set; }
         public string NoVoiture { get; set; }
         public Voiture Voiture { get; set; }
-
+        public bool Actif { get; set; }
+        public string Description { get; set; }
     }
 }
