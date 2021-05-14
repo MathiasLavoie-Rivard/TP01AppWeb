@@ -326,7 +326,26 @@ namespace TP01AppWeb.Models
             {
                 return "Le dossier d'accident n'existe pas";
             }
-            return "blabla";
+
+
+            if (Dossier.Location.Client.NoPermis != dossier.NoPermis)
+            {
+                error += "Le numéro de dossier d’accident ne concerne pas une location pour ce client \n\r";
+            }
+            if (Dossier.Location.Voiture.NoVoiture != dossier.NoVoiture)
+            {
+                error += "Le numéro de dossier d’accident ne concerne la location de la voiture identifiée";
+            }
+
+
+            if (error is null)
+            {
+                Dossier.Actif = false;
+                contextEntr.Update(Dossier);
+                contextEntr.SaveChanges();
+            }
+            return error;
         }
     }
 }
+    
