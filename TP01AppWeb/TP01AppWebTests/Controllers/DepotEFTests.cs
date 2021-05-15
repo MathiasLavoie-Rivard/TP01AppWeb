@@ -68,12 +68,63 @@ namespace TP01AppWebTests.Controllers
             Voiture voitResult = context.Voitures.FirstOrDefault(v => v.Model == "Saab Aero-X");
 
             //Assert
-            Assert.Equal(voitResult, voit);
+            Assert.Equal(voitResult.Annee, voit.Annee);
+            Assert.Equal(voitResult.Groupe, voit.Groupe);
+            Assert.Equal(voitResult.Millage, voit.Millage);
+            Assert.Equal(voitResult.Model, voit.Model);
+            Assert.Equal(voitResult.NoVoiture, voit.NoVoiture);
+            Assert.Equal(voitResult.SuccursaleId, voit.SuccursaleId);
             Assert.Equal("SUCCESS", result);
 
             //Clear
             context.Voitures.Remove(voitResult);
             context.SaveChanges();
+        }
+
+        [Fact]
+        public void ConfirmerRetourLocationTest()
+        {
+            //Arrange
+            Voiture voit = new Voiture();
+            voit.Annee = 2011;
+            voit.Groupe = Voiture.Groupes.Sedan;
+            voit.Millage = 95;
+            voit.Model = "Saab 9-3";
+            voit.NoVoiture = 18;
+            voit.SuccursaleId = 1;
+            context.Voitures.Add(voit);
+            Location location = new Location();
+            location.Voiture = voit;
+            location.VoitureId = voit.Id;
+            Client client = new Client();
+            client.Nom = "Gérard";
+            client.Prenom = "Bob";
+            client.NoTelephone = "14502154484";
+            client.NoPermis = "125";
+            location.Client = client;
+            location.Voiture.Disponible = false;
+            location.SuccursaleRetourId = 1;
+            context.Locations.Add(location);
+            RetournerLocation retour = new RetournerLocation();
+            retour.NoVoiture = (int)voit.NoVoiture;
+            retour.Millage = voit.Millage + 5;
+            retour.NoSuccursale = voit.SuccursaleId;
+            retour.NoPermisClient = location.Client.NoPermis;
+            context.SaveChanges();
+
+            //Act
+            depot.ConfirmerRetourLocation(retour);
+            Voiture voitResult = context.Voitures.FirstOrDefault(v => v.NoVoiture == voit.NoVoiture);
+
+            //Assert
+            Assert.Equal(voitResult.NoVoiture, voit.NoVoiture);
+            Assert.Equal(voitResult.Model, voit.Model);
+            Assert.Equal(voitResult.Annee, voit.Annee);
+            Assert.Equal(voitResult.Millage, voit.Millage + 5);
+            Assert.Equal(voitResult.Groupe, voit.Groupe);
+            Assert.Equal(voitResult.SuccursaleId, voit.SuccursaleId);
+            Assert.NotEqual(voitResult.Disponible, voit.Disponible);
+            Assert.Equal(voitResult.SuccursaleId, voit.SuccursaleId);
         }
     }
 }
