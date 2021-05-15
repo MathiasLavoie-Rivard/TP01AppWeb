@@ -259,17 +259,27 @@ namespace TP01AppWeb.Controllers
 
                     if (location != null)
                     {
-                        InfosRetour infoRetour = new InfosRetour
+                        if (retour.Millage >= location.Voiture.Millage)
                         {
-                            NoTelephone = client.NoTelephone,
-                            Nom = client.Nom,
-                            Prenom = client.Prenom,
-                            NoPermis = client.NoPermis,
-                            SuccursaleId = location.SuccursaleRetourId,
-                            DateLocation = location.DateLocation,
-                            JoursLocation = location.JoursLocation
-                        };
-                        return View("InfosRetour", infoRetour);
+                            if (location.Client.Id == client.Id)
+                            {
+                                InfosRetour infoRetour = new InfosRetour
+                                {
+                                    NoTelephone = client.NoTelephone,
+                                    Nom = client.Nom,
+                                    Prenom = client.Prenom,
+                                    NoPermis = client.NoPermis,
+                                    SuccursaleId = location.SuccursaleRetourId,
+                                    DateLocation = location.DateLocation,
+                                    JoursLocation = location.JoursLocation
+                                };
+                                return View("InfosRetour", infoRetour);
+                            }
+                            ModelState.AddModelError(nameof(retour.NoPermisClient), "La voiture n’est pas actuellement louée au client désigné");
+                            return View("Retourner");
+                        }
+                        ModelState.AddModelError(nameof(retour.Millage), "Le nouveau millage est inférieur au millage précédent");
+                        return View("Retourner");
                     }
                     ModelState.AddModelError(nameof(retour.NoVoiture), "Aucune voiture corespondant au modèle n'est en location");
                     return View("Retourner");
@@ -291,7 +301,18 @@ namespace TP01AppWeb.Controllers
         public IActionResult InfosRetour(InfosRetour infos)
         {
             if (ModelState.IsValid)
+            {
+                RetournerLocation retour = new RetournerLocation();
+                retour.NoVoiture = infos.NoVoiture;
+                retour.NoPermisClient = infos.NoPermis;
+
+                if (infos.DateLocation.AddDays((double)infos.JoursLocation).Date != DateTime.Now.Date)
+                    ViewBag.Message = "La date du jour est differente de la date de retour prevue.";
+                if (infos.NoSuccursale != Depot.RetournerLocation(retour).SuccursaleRetourId)
+                    ViewBag.Message = "La succursale de retour n’est pas celle qui etait prevue a la location.";
+
                 return View("InfosRetour2", infos);
+            }
             else
                 return View("Retourner");
         }
@@ -305,15 +326,17 @@ namespace TP01AppWeb.Controllers
                 RetournerLocation retour = new RetournerLocation();
                 retour.NoVoiture = infos.NoVoiture;
                 retour.NoPermisClient = infos.NoPermis;
-                Location location = Depot.RetournerLocation(retour);
-                Voiture voiture = Depot.ChercherVoitureParNo(infos.NoVoiture);
-                voiture.Disponible = true;
-
+                retour.Millage = infos.Millage;
+                retour.NoSuccursale = infos.NoSuccursale;
 
                 if (infos.Accident)
                 {
+                    DossierAccident accident = new DossierAccident();
+                    accident.NoPermis = infos.NoPermis;
+                    accident.LocationId = Depot.ConfirmerRetourLocation(retour).Id;
+                    accident.Actif = true;
 
-                    return View("Accident", infos);
+                    return View("Accident", accident);
                 }
                 else
                     return RedirectToAction("Index", "Home");
@@ -322,11 +345,24 @@ namespace TP01AppWeb.Controllers
                 return View("InfosRetour2", infos);
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Commis")]
+        public IActionResult Accident(DossierAccident accident)
+        {
+            if (ModelState.IsValid)
+            {
+                Depot.AjouterAccident(accident);
+
+                return RedirectToAction("Index", "Home");
+            }
+            else
+                return View("Accident", accident);
+        }
+
         [HttpGet]
         [Authorize(Roles = "Commis")]
         public IActionResult FermerDossier()
         {
-
             return View("FermerDossier");
         }
         [HttpPost]
@@ -336,18 +372,18 @@ namespace TP01AppWeb.Controllers
             if (ModelState.IsValid)
             {
                 string error = Depot.VerifierDossierClient(p_Dossier);
-                if (error == null)
+                if (error == null || error == "")
                 {
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    ModelState.AddModelError(nameof(p_Dossier), "Le code de succursale est inexistant");
+                    ModelState.AddModelError(nameof(p_Dossier), error);
                     return View(p_Dossier);
                 }
             }
             return View(p_Dossier);
-            
+
         }
     }
 }

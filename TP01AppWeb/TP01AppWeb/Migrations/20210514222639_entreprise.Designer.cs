@@ -10,7 +10,7 @@ using TP01AppWeb.Models.Entreprise;
 namespace TP01AppWeb.Migrations
 {
     [DbContext(typeof(ContextEntreprise))]
-    [Migration("20210514070317_entreprise")]
+    [Migration("20210514222639_entreprise")]
     partial class entreprise
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,27 +59,19 @@ namespace TP01AppWeb.Migrations
                     b.Property<bool>("Actif")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ClientId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
 
                     b.Property<string>("NoPermis")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NoVoiture")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("VoitureId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ClientId");
-
-                    b.HasIndex("VoitureId");
+                    b.HasIndex("LocationId");
 
                     b.ToTable("DossierAccidents");
                 });
@@ -199,13 +191,11 @@ namespace TP01AppWeb.Migrations
 
             modelBuilder.Entity("TP01AppWeb.Models.Entreprise.DossierAccident", b =>
                 {
-                    b.HasOne("TP01AppWeb.Models.Entreprise.Client", "Client")
+                    b.HasOne("TP01AppWeb.Models.Entreprise.Location", "Location")
                         .WithMany()
-                        .HasForeignKey("ClientId");
-
-                    b.HasOne("TP01AppWeb.Models.Entreprise.Voiture", "Voiture")
-                        .WithMany()
-                        .HasForeignKey("VoitureId");
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TP01AppWeb.Models.Entreprise.Location", b =>

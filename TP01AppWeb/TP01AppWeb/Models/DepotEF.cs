@@ -279,9 +279,32 @@ namespace TP01AppWeb.Models
 
         public Location RetournerLocation(RetournerLocation retour)
         {
-            Location location = contextEntr.Locations.FirstOrDefault(l => l.Voiture.NoVoiture == retour.NoVoiture && l.Client.NoPermis == retour.NoPermisClient);
+            Voiture voiture = contextEntr.Voitures.FirstOrDefault(v => v.NoVoiture == retour.NoVoiture);
+            Location location = contextEntr.Locations.FirstOrDefault(l => (int)l.Voiture.NoVoiture == retour.NoVoiture && l.Client.NoPermis == retour.NoPermisClient && l.Voiture.Disponible == false);
 
             return location;
+        }
+
+        public Location ConfirmerRetourLocation(RetournerLocation retour)
+        {
+            Voiture voiture = contextEntr.Voitures.FirstOrDefault(v => v.NoVoiture == retour.NoVoiture);
+            Location location = contextEntr.Locations.FirstOrDefault(l => (int)l.Voiture.NoVoiture == retour.NoVoiture && l.Client.NoPermis == retour.NoPermisClient && l.Voiture.Disponible == false);
+            if (location != null)
+            {
+                voiture.Millage = retour.Millage;
+                voiture.SuccursaleId = retour.NoSuccursale;
+                voiture.Disponible = true;
+                contextEntr.SaveChanges();
+            }
+
+            return location;
+        }
+
+        public void AjouterAccident(DossierAccident accident)
+        {
+            accident.Actif = true;
+            contextEntr.DossierAccidents.Add(accident);
+            contextEntr.SaveChanges();
         }
 
         public Client RetournerClient(RetournerLocation retour)
@@ -293,7 +316,7 @@ namespace TP01AppWeb.Models
 
         public bool VerifierLocations(string NoPermis)
         {
-            List <Location> Locations = contextEntr.Locations.Where(x => x.Client.NoPermis == NoPermis && x.Voiture.Disponible == false).ToList();
+            List<Location> Locations = contextEntr.Locations.Where(x => x.Client.NoPermis == NoPermis && x.Voiture.Disponible == false).ToList();
             if (Locations.Count == 0)
             {
                 return true;
@@ -327,18 +350,19 @@ namespace TP01AppWeb.Models
                 return "Le dossier d'accident n'existe pas";
             }
 
-
-            if (Dossier.Location.Client.NoPermis != dossier.NoPermis)
+            Location location = contextEntr.Locations.FirstOrDefault(x => x.Id == Dossier.LocationId);
+            Client client = contextEntr.Clients.FirstOrDefault(c => c.Id == location.ClientId);
+            if (client.NoPermis != dossier.NoPermis)
             {
                 error += "Le numéro de dossier d’accident ne concerne pas une location pour ce client \n\r";
             }
-            if (Dossier.Location.Voiture.NoVoiture != dossier.NoVoiture)
+            Voiture voiture = contextEntr.Voitures.FirstOrDefault(v => v.Id == location.VoitureId);
+            if (voiture.NoVoiture != dossier.NoVoiture)
             {
                 error += "Le numéro de dossier d’accident ne concerne la location de la voiture identifiée";
             }
 
-
-            if (error is null)
+            if (error == null || error == "")
             {
                 Dossier.Actif = false;
                 contextEntr.Update(Dossier);
@@ -348,4 +372,3 @@ namespace TP01AppWeb.Models
         }
     }
 }
-    

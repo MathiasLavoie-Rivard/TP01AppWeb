@@ -2,6 +2,14 @@
 @{
     Layout = "_Layout";
 }
+@if (ViewBag.Message != null)
+{
+    <script>
+        (function () {
+            alert('@ViewBag.Message');
+        })();
+    </script>
+}
 <main role="main" class="pb-3 logoimage">
     <form asp-action="infosRetour2" method="post">
         <div class="form-group">
@@ -29,8 +37,18 @@
             <input readonly asp-for="NoVoiture" class="form-control" />
             <span asp-validation-for="NoVoiture" class="error"></span>
         </div>
+        <div hidden class="form-group">
+            <label asp-for="NoSuccursale"></label>
+            <input readonly asp-for="NoSuccursale" class="form-control" />
+            <span asp-validation-for="NoSuccursale" class="error"></span>
+        </div>
+        <div hidden class="form-group">
+            <label asp-for="Millage"></label>
+            <input readonly asp-for="Millage" class="form-control" />
+            <span asp-validation-for="Millage" class="error"></span>
+        </div>
         <label asp-for="Accident"></label>
-        <input type="checkbox" asp-for="Accident" class="form-control float-left" />
+        <input type="checkbox" asp-for="Accident" class="form-control" />
         <button type="submit" class="btn btn-primary">Valider le retour</button>
     </form>
 </main>

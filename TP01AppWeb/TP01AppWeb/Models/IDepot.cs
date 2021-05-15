@@ -26,6 +26,8 @@ namespace TP01AppWeb.Models
         bool AjouterClient(Client p_client);
         bool AjouterLocation(Location p_Location);
         Location RetournerLocation(RetournerLocation retour);
+        Location ConfirmerRetourLocation(RetournerLocation retour);
+        void AjouterAccident(DossierAccident accident);
         Client RetournerClient(RetournerLocation retour);
         bool VerifierLocations(string NoPermis);
         bool VerifierAccident(string NoPermis);

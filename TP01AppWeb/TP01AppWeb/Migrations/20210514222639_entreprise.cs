@@ -68,36 +68,6 @@ namespace TP01AppWeb.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DossierAccidents",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NoPermis = table.Column<string>(nullable: false),
-                    ClientId = table.Column<int>(nullable: true),
-                    NoVoiture = table.Column<string>(nullable: true),
-                    VoitureId = table.Column<int>(nullable: true),
-                    Actif = table.Column<bool>(nullable: false),
-                    Description = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DossierAccidents", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DossierAccidents_Clients_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Clients",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_DossierAccidents_Voitures_VoitureId",
-                        column: x => x.VoitureId,
-                        principalTable: "Voitures",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Locations",
                 columns: table => new
                 {
@@ -132,15 +102,32 @@ namespace TP01AppWeb.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_DossierAccidents_ClientId",
-                table: "DossierAccidents",
-                column: "ClientId");
+            migrationBuilder.CreateTable(
+                name: "DossierAccidents",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NoPermis = table.Column<string>(nullable: false),
+                    LocationId = table.Column<int>(nullable: false),
+                    Actif = table.Column<bool>(nullable: false),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DossierAccidents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DossierAccidents_Locations_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "Locations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateIndex(
-                name: "IX_DossierAccidents_VoitureId",
+                name: "IX_DossierAccidents_LocationId",
                 table: "DossierAccidents",
-                column: "VoitureId");
+                column: "LocationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Locations_ClientId",

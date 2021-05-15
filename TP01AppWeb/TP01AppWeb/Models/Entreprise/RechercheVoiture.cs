@@ -9,10 +9,10 @@ namespace TP01AppWeb.Models.Entreprise
 {
     public class RechercheVoiture
     {
-        [Required]
+        [Required(ErrorMessage = "Veuillez entrer un nom de modèle")]
         [Display(Name = "Nom du modèle:")]
         public string Model { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Veuillez entrer un code de succursale")]
         [Range(1, int.MaxValue)]
         [Display(Name = "Code de succursale:")]
         public int? CodeSuccursale { get; set; }

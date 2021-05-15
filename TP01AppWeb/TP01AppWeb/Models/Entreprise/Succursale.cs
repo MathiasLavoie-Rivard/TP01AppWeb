@@ -19,19 +19,19 @@ namespace TP01AppWeb.Models.Entreprise
         [Range(1, int.MaxValue, ErrorMessage = "Le numéro civic doit être un entier positif")]
         [Display(Name = "Numéro civic:")]
         public int? NoCivic { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Veuillez entrer un nom de rue")]
         [Display(Name = "Nom de rue:")]
         public string Rue { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Veuillez entrer une ville")]
         [Display(Name = "Ville:")]
         public string Ville { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Veuillez entrer une province")]
         [Display(Name = "Province:")]
         public string Province { get; set; }
         [Display(Name = "Code Postal:")]
         [RegularExpression(@"^[A-Za-z]\d[A-Za-z]\d[A-Za-z]\d$",
          ErrorMessage = "Le format du code postal est invalide")]
-        [Required]
+        [Required(ErrorMessage = "Veuillez entrer un code postal")]
         public string CodePostal { get; set; }
         [Required(ErrorMessage = "Veuillez entrer un numéro de téléphone")]
         [Display(Name = "Numéro de téléphone: \r\n Format: 0123456789")]

@@ -10,11 +10,18 @@ namespace TP01AppWeb.Models.Entreprise
     {
         [Key]
         public int Id { get; set; }
+        [Display(Name = "Date de début de la location")]
         public DateTime DateLocation { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Veuillez entrer une durée")]
+        [Display(Name = "Durée de la location (en jours)")]
         public int JoursLocation { get; set; }
+        [Display(Name = "ID du client")]
+        public int ClientId { get; set; }
         public Client Client { get; set; }
+        [Display(Name = "Numéro de voiture")]
+        public int VoitureId { get; set; }
         public Voiture Voiture { get; set; }
+        [Display(Name = "Numéro de succursale de retour prévue")]
         public int SuccursaleRetourId { get; set; }
         public Succursale SuccursaleRetour { get; set; }
     }

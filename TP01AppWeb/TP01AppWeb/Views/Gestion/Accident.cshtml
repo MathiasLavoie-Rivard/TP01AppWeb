@@ -1,0 +1,25 @@
+﻿@model DossierAccident
+@{
+    Layout = "_Layout";
+}
+<main role="main" class="pb-3 logoimage">
+    <form asp-action="Accident" method="post">
+        <div class="form-group">
+            <label asp-for="Id"></label>
+            <input readonly asp-for="Id" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="NoPermis"></label>
+            <input readonly asp-for="NoPermis" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="LocationId"></label>
+            <input readonly asp-for="LocationId" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <textarea rows="5" asp-for="Description" class="form-control"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Fermer le dossier</button>
+    </form>
+</main>
