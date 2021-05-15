@@ -292,7 +292,7 @@ namespace TP01AppWeb.Models
             if (location != null)
             {
                 voiture.Millage = retour.Millage;
-                voiture.SuccursaleId = retour.NoSuccursale;
+                voiture.SuccursaleId = contextEntr.Succursales.FirstOrDefault(s => s.Code == retour.NoSuccursale)?.Id;
                 voiture.Disponible = true;
                 contextEntr.SaveChanges();
             }
@@ -302,9 +302,22 @@ namespace TP01AppWeb.Models
 
         public void AjouterAccident(DossierAccident accident)
         {
-            accident.Actif = true;
             contextEntr.DossierAccidents.Add(accident);
             contextEntr.SaveChanges();
+        }
+
+        public void CompleterAccident(DossierAccident accident)
+        {
+            accident = contextEntr.DossierAccidents.FirstOrDefault(da => da.Id == accident.Id);
+            accident.Actif = true;
+            contextEntr.SaveChanges();
+        }
+
+        public DossierAccident RetournerAccident(DossierAccident accident)
+        {
+            accident = contextEntr.DossierAccidents.FirstOrDefault(da => da.NoPermis == accident.NoPermis && da.LocationId == accident.LocationId && da.Actif == true);
+
+            return accident;
         }
 
         public Client RetournerClient(RetournerLocation retour)
@@ -351,12 +364,12 @@ namespace TP01AppWeb.Models
             }
 
             Location location = contextEntr.Locations.FirstOrDefault(x => x.Id == Dossier.LocationId);
-            Client client = contextEntr.Clients.FirstOrDefault(c => c.Id == location.ClientId);
+            Client client = contextEntr.Clients.FirstOrDefault(c => c.Locations.Any(l => l.Id == location.Id));
             if (client.NoPermis != dossier.NoPermis)
             {
                 error += "Le numéro de dossier d’accident ne concerne pas une location pour ce client \n\r";
             }
-            Voiture voiture = contextEntr.Voitures.FirstOrDefault(v => v.Id == location.VoitureId);
+            Voiture voiture = contextEntr.Voitures.FirstOrDefault(v => v.Locations.Any(l => l.Id == location.Id));
             if (voiture.NoVoiture != dossier.NoVoiture)
             {
                 error += "Le numéro de dossier d’accident ne concerne la location de la voiture identifiée";

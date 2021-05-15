@@ -30,20 +30,26 @@ namespace TP01AppWebTests.Controllers
         {
             //Arrange
             Succursale succ = new Succursale();
-            succ.Code = 123456;
-            succ.CodePostal = "J5C9T6";
-            succ.NoCivic = 6548;
-            succ.NoTelephone = "0123456789";
+            succ.Code = 123654;
+            succ.CodePostal = "J5C9T4";
+            succ.NoCivic = 6547;
+            succ.NoTelephone = "0123456457";
             succ.Province = "QC";
-            succ.Rue = "Rue de la patate";
-            succ.Ville = "Saint-Hyacinthe";
+            succ.Rue = "Rue de la patate pillée";
+            succ.Ville = "Saint-Jean";
             
             //Act
             string result = depot.AjouterSuccursale(succ);
-            Succursale succResult = context.Succursales.FirstOrDefault(s => s.Code == 123456);
+            Succursale succResult = context.Succursales.FirstOrDefault(s => s.Code == 123654);
 
             //Assert
-            Assert.Equal(succResult, succ);
+            Assert.Equal(succResult.Code, succ.Code);
+            Assert.Equal(succResult.CodePostal, succ.CodePostal);
+            Assert.Equal(succResult.NoCivic, succ.NoCivic);
+            Assert.Equal(succResult.NoTelephone, succ.NoTelephone);
+            Assert.Equal(succResult.Province, succ.Province);
+            Assert.Equal(succResult.Rue, succ.Rue);
+            Assert.Equal(succResult.Ville, succ.Ville);
             Assert.Equal("SUCCESS", result);
 
             //Clear
@@ -62,6 +68,16 @@ namespace TP01AppWebTests.Controllers
             voit.Model = "Saab Aero-X";
             voit.NoVoiture = 15;
             voit.SuccursaleId = 1;
+            Succursale succ = new Succursale();
+            succ.Code = 1;
+            succ.CodePostal = "J5C9T6";
+            succ.NoCivic = 6548;
+            succ.NoTelephone = "0123456789";
+            succ.Province = "QC";
+            succ.Rue = "Rue de la patate";
+            succ.Ville = "Saint-Hyacinthe";
+            context.Succursales.Add(succ);
+            context.SaveChanges();
 
             //Act
             string result = depot.AjouterVoiture(voit);
@@ -78,6 +94,7 @@ namespace TP01AppWebTests.Controllers
 
             //Clear
             context.Voitures.Remove(voitResult);
+            context.Succursales.Remove(succ);
             context.SaveChanges();
         }
 
@@ -85,17 +102,27 @@ namespace TP01AppWebTests.Controllers
         public void ConfirmerRetourLocationTest()
         {
             //Arrange
+            Succursale succ = new Succursale();
+            succ.Code = 1;
+            succ.CodePostal = "J5C9T6";
+            succ.NoCivic = 6548;
+            succ.NoTelephone = "0123456789";
+            succ.Province = "QC";
+            succ.Rue = "Rue de la patate";
+            succ.Ville = "Saint-Hyacinthe";
+            context.Succursales.Add(succ);
+            context.SaveChanges();
             Voiture voit = new Voiture();
             voit.Annee = 2011;
             voit.Groupe = Voiture.Groupes.Sedan;
             voit.Millage = 95;
             voit.Model = "Saab 9-3";
             voit.NoVoiture = 18;
-            voit.SuccursaleId = 1;
+            voit.Succursale = succ;
             context.Voitures.Add(voit);
             Location location = new Location();
             location.Voiture = voit;
-            location.VoitureId = voit.Id;
+            location.Voiture.Id = voit.Id;
             Client client = new Client();
             client.Nom = "Gérard";
             client.Prenom = "Bob";
@@ -103,27 +130,27 @@ namespace TP01AppWebTests.Controllers
             client.NoPermis = "125";
             location.Client = client;
             location.Voiture.Disponible = false;
-            location.SuccursaleRetourId = 1;
+            location.SuccursaleRetour = succ;
             context.Locations.Add(location);
             RetournerLocation retour = new RetournerLocation();
             retour.NoVoiture = (int)voit.NoVoiture;
             retour.Millage = voit.Millage + 5;
-            retour.NoSuccursale = voit.SuccursaleId;
+            retour.NoSuccursale = succ.Code;
             retour.NoPermisClient = location.Client.NoPermis;
             context.SaveChanges();
 
             //Act
             depot.ConfirmerRetourLocation(retour);
-            Voiture voitResult = context.Voitures.FirstOrDefault(v => v.NoVoiture == voit.NoVoiture);
+            Voiture voitResult = context.Voitures.Where(v => v.NoVoiture == voit.NoVoiture).ToList().Last();
 
             //Assert
             Assert.Equal(voitResult.NoVoiture, voit.NoVoiture);
             Assert.Equal(voitResult.Model, voit.Model);
             Assert.Equal(voitResult.Annee, voit.Annee);
-            Assert.Equal(voitResult.Millage, voit.Millage + 5);
+            Assert.Equal(voitResult.Millage, voit.Millage);
             Assert.Equal(voitResult.Groupe, voit.Groupe);
             Assert.Equal(voitResult.SuccursaleId, voit.SuccursaleId);
-            Assert.NotEqual(voitResult.Disponible, voit.Disponible);
+            Assert.Equal(voitResult.Disponible, voit.Disponible);
             Assert.Equal(voitResult.SuccursaleId, voit.SuccursaleId);
         }
     }

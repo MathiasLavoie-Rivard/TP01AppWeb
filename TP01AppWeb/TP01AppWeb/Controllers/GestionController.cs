@@ -308,7 +308,7 @@ namespace TP01AppWeb.Controllers
 
                 if (infos.DateLocation.AddDays((double)infos.JoursLocation).Date != DateTime.Now.Date)
                     ViewBag.Message = "La date du jour est differente de la date de retour prevue.";
-                if (infos.NoSuccursale != Depot.RetournerLocation(retour).SuccursaleRetourId)
+                if (infos.SuccursaleId != Depot.RetournerLocation(retour).SuccursaleRetourId)
                     ViewBag.Message = "La succursale de retour n’est pas celle qui etait prevue a la location.";
 
                 return View("InfosRetour2", infos);
@@ -335,7 +335,8 @@ namespace TP01AppWeb.Controllers
                     accident.NoPermis = infos.NoPermis;
                     accident.LocationId = Depot.ConfirmerRetourLocation(retour).Id;
                     accident.Actif = true;
-
+                    Depot.AjouterAccident(accident);
+                    accident = Depot.RetournerAccident(accident);
                     return View("Accident", accident);
                 }
                 else
@@ -351,7 +352,7 @@ namespace TP01AppWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                Depot.AjouterAccident(accident);
+                Depot.CompleterAccident(accident);
 
                 return RedirectToAction("Index", "Home");
             }

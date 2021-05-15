@@ -23,5 +23,6 @@ namespace TP01AppWeb.Models.Entreprise
         [Display(Name = "Prénom")]
         [Required(ErrorMessage = "Veuillez entrer un prénom")]
         public string Prenom { get; set; }
+        public List<Location> Locations { get; set; }
     }
 }

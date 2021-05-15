@@ -16,10 +16,8 @@ namespace TP01AppWeb.Models.Entreprise
         [Display(Name = "Durée de la location (en jours)")]
         public int JoursLocation { get; set; }
         [Display(Name = "ID du client")]
-        public int ClientId { get; set; }
         public Client Client { get; set; }
         [Display(Name = "Numéro de voiture")]
-        public int VoitureId { get; set; }
         public Voiture Voiture { get; set; }
         [Display(Name = "Numéro de succursale de retour prévue")]
         public int SuccursaleRetourId { get; set; }

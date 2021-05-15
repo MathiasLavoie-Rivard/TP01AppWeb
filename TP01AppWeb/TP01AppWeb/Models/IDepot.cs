@@ -28,6 +28,8 @@ namespace TP01AppWeb.Models
         Location RetournerLocation(RetournerLocation retour);
         Location ConfirmerRetourLocation(RetournerLocation retour);
         void AjouterAccident(DossierAccident accident);
+        void CompleterAccident(DossierAccident accident);
+        DossierAccident RetournerAccident(DossierAccident accident);
         Client RetournerClient(RetournerLocation retour);
         bool VerifierLocations(string NoPermis);
         bool VerifierAccident(string NoPermis);

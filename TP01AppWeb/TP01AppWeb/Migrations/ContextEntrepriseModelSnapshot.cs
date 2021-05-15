@@ -199,7 +199,7 @@ namespace TP01AppWeb.Migrations
             modelBuilder.Entity("TP01AppWeb.Models.Entreprise.Location", b =>
                 {
                     b.HasOne("TP01AppWeb.Models.Entreprise.Client", "Client")
-                        .WithMany()
+                        .WithMany("Locations")
                         .HasForeignKey("ClientId");
 
                     b.HasOne("TP01AppWeb.Models.Entreprise.Succursale", "SuccursaleRetour")
